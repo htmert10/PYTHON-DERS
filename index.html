@@ -2,48 +2,85 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <title>Kullanışlı Bilgiler!</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Kullanışlı Bilgiler</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            padding: 20px;
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+        .tabs {
+            display: flex;
+            justify-content: center;
+            background-color: #0077cc;
+            padding: 10px;
         }
         .tabs button {
-            padding: 10px;
-            cursor: pointer;
-            background-color: #eee;
+            background-color: #0077cc;
+            color: white;
             border: none;
-            margin-right: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            font-size: 16px;
+        }
+        .tabs button:hover {
+            background-color: #005fa3;
         }
         .tabcontent {
             display: none;
-            margin-top: 20px;
+            padding: 20px;
+            max-width: 800px;
+            margin: auto;
         }
         .tabcontent.active {
             display: block;
         }
-        img {
-            max-width: 100%;
-            height: auto;
+        h2 {
+            color: #333;
         }
         .quiz-question {
+            background-color: white;
+            border-radius: 10px;
+            padding: 15px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
             margin-bottom: 20px;
         }
-        .quiz-option {
+        .quiz-question img {
+            max-width: 100%;
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+        label {
             display: block;
             margin: 5px 0;
         }
         #quiz-result {
             font-weight: bold;
+            font-size: 18px;
             color: green;
+            text-align: center;
+            margin-top: 20px;
+        }
+        button.check-btn {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button.check-btn:hover {
+            background-color: #218838;
         }
     </style>
     <script>
         function openTab(evt, tabName) {
-            const tabContents = document.getElementsByClassName("tabcontent");
-            for (let i = 0; i < tabContents.length; i++) {
-                tabContents[i].classList.remove("active");
+            const contents = document.getElementsByClassName("tabcontent");
+            for (let i = 0; i < contents.length; i++) {
+                contents[i].classList.remove("active");
             }
             document.getElementById(tabName).classList.add("active");
         }
@@ -57,11 +94,16 @@
                     score++;
                 }
             }
-            document.getElementById("quiz-result").innerText = `Doğru sayınız: ${score} / 5`;
+            document.getElementById("quiz-result").innerText = `✅ Doğru sayınız: ${score} / 5`;
         }
+
+        window.onload = () => {
+            openTab(null, 'Tab1'); // varsayılan tab
+        };
     </script>
 </head>
 <body>
+
     <div class="tabs">
         <button onclick="openTab(event, 'Tab1')">Ana Menü</button>
         <button onclick="openTab(event, 'Tab2')">Kodlarım</button>
@@ -69,23 +111,23 @@
         <button onclick="openTab(event, 'Tab4')">Quiz</button>
     </div>
 
-    <div id="Tab1" class="tabcontent active">
+    <div id="Tab1" class="tabcontent">
         <h2>Ana Menü</h2>
-        <p>Burası ana menüdür. Kullanıcı buradan genel bilgilere ulaşabilir.</p>
+        <p>Burada genel bilgiler yer alır.</p>
     </div>
 
     <div id="Tab2" class="tabcontent">
         <h2>Kodlarım</h2>
-        <p>Burada kod paylaşımların olacak.</p>
+        <p>Kendi yazdığın kodları burada sergileyebilirsin.</p>
     </div>
 
     <div id="Tab3" class="tabcontent">
         <h2>Kullanıcı Alanı</h2>
-        <p>Kullanıcıların etkileşimde bulunabileceği bir alan.</p>
+        <p>Kullanıcılar etkileşimde bulunabilir.</p>
     </div>
 
     <div id="Tab4" class="tabcontent">
-        <h2>Mini Quiz</h2>
+        <h2>Mini Görselli Quiz</h2>
 
         <div class="quiz-question">
             <p>1. Bu hangi hayvandır?</p>
@@ -127,8 +169,11 @@
             <label><input type="radio" name="q5" value="c"> Termometre</label>
         </div>
 
-        <button onclick="checkQuiz()">Cevapları Kontrol Et</button>
-        <p id="quiz-result"></p>
+        <div style="text-align: center;">
+            <button class="check-btn" onclick="checkQuiz()">Cevapları Kontrol Et</button>
+            <p id="quiz-result"></p>
+        </div>
     </div>
+
 </body>
 </html>
