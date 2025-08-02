@@ -2,178 +2,185 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <title>Kullanışlı Bilgiler</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HalilMert'in Sitesi</title>
     <style>
         body {
-            font-family: 'Segoe UI', sans-serif;
-            background-color: #f5f5f5;
+            font-family: Arial, sans-serif;
+            background: #f3f3f3;
             margin: 0;
             padding: 0;
         }
+
         .tabs {
             display: flex;
-            justify-content: center;
-            background-color: #0077cc;
-            padding: 10px;
+            background-color: #444;
         }
-        .tabs button {
-            background-color: #0077cc;
+
+        .tablink {
+            flex: 1;
+            background-color: #444;
             color: white;
+            padding: 14px;
             border: none;
-            padding: 10px 20px;
             cursor: pointer;
-            transition: background-color 0.3s;
-            font-size: 16px;
+            transition: 0.3s;
         }
-        .tabs button:hover {
-            background-color: #005fa3;
+
+        .tablink:hover {
+            background-color: #666;
         }
+
         .tabcontent {
             display: none;
             padding: 20px;
-            max-width: 800px;
-            margin: auto;
+            animation: fadeEffect 0.5s;
         }
-        .tabcontent.active {
-            display: block;
+
+        @keyframes fadeEffect {
+            from {opacity: 0;}
+            to {opacity: 1;}
         }
-        h2 {
-            color: #333;
+
+        .active-tab {
+            background-color: #666 !important;
         }
+
         .quiz-question {
+            margin-bottom: 20px;
+            padding: 15px;
             background-color: white;
             border-radius: 10px;
-            padding: 15px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
+            box-shadow: 0 0 5px #aaa;
         }
+
         .quiz-question img {
             max-width: 100%;
-            border-radius: 8px;
-            margin: 10px 0;
+            height: auto;
+            border-radius: 5px;
+            margin-bottom: 10px;
         }
-        label {
-            display: block;
+
+        .quiz-option {
+            background-color: #ddd;
+            padding: 10px;
             margin: 5px 0;
-        }
-        #quiz-result {
-            font-weight: bold;
-            font-size: 18px;
-            color: green;
-            text-align: center;
-            margin-top: 20px;
-        }
-        button.check-btn {
-            background-color: #28a745;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            font-size: 16px;
             border-radius: 5px;
             cursor: pointer;
         }
-        button.check-btn:hover {
-            background-color: #218838;
+
+        .quiz-option:hover {
+            background-color: #bbb;
+        }
+
+        .quiz-feedback {
+            font-weight: bold;
+            margin-top: 10px;
         }
     </style>
-    <script>
-        function openTab(evt, tabName) {
-            const contents = document.getElementsByClassName("tabcontent");
-            for (let i = 0; i < contents.length; i++) {
-                contents[i].classList.remove("active");
-            }
-            document.getElementById(tabName).classList.add("active");
-        }
-
-        function checkQuiz() {
-            const correctAnswers = ["b", "a", "c", "a", "b"];
-            let score = 0;
-            for (let i = 1; i <= 5; i++) {
-                const answer = document.querySelector(`input[name="q${i}"]:checked`);
-                if (answer && answer.value === correctAnswers[i - 1]) {
-                    score++;
-                }
-            }
-            document.getElementById("quiz-result").innerText = `✅ Doğru sayınız: ${score} / 5`;
-        }
-
-        window.onload = () => {
-            openTab(null, 'Tab1'); // varsayılan tab
-        };
-    </script>
 </head>
 <body>
 
     <div class="tabs">
-        <button onclick="openTab(event, 'Tab1')">Ana Menü</button>
-        <button onclick="openTab(event, 'Tab2')">Kodlarım</button>
-        <button onclick="openTab(event, 'Tab3')">Kullanıcı Alanı</button>
-        <button onclick="openTab(event, 'Tab4')">Quiz</button>
+        <button class="tablink active-tab" onclick="openTab(event, 'Anasayfa')">Anasayfa</button>
+        <button class="tablink" onclick="openTab(event, 'Quiz')">Quiz</button>
     </div>
 
-    <div id="Tab1" class="tabcontent">
-        <h2>Ana Menü</h2>
-        <p>Burada genel bilgiler yer alır.</p>
+    <div id="Anasayfa" class="tabcontent" style="display:block">
+        <h1>Hoş Geldiniz!</h1>
+        <p>Bu site Halil Mert tarafından hazırlanmıştır.</p>
+        <p>HTML, CSS, eğlenceli quizler ve daha fazlası burada!</p>
     </div>
 
-    <div id="Tab2" class="tabcontent">
-        <h2>Kodlarım</h2>
-        <p>Kendi yazdığın kodları burada sergileyebilirsin.</p>
+    <div id="Quiz" class="tabcontent">
+        <div id="quizContainer"></div>
     </div>
 
-    <div id="Tab3" class="tabcontent">
-        <h2>Kullanıcı Alanı</h2>
-        <p>Kullanıcılar etkileşimde bulunabilir.</p>
-    </div>
+    <script>
+        const quizData = [
+            {
+                question: "Bu hayvan nedir?",
+                image: "https://upload.wikimedia.org/wikipedia/commons/3/3a/Cat03.jpg",
+                options: ["Köpek", "Kedi", "Kuş", "Balık"],
+                answer: "Kedi"
+            },
+            {
+                question: "Hangi ülkenin bayrağıdır?",
+                image: "https://upload.wikimedia.org/wikipedia/commons/b/ba/Flag_of_Germany.svg",
+                options: ["Almanya", "Fransa", "Belçika", "İtalya"],
+                answer: "Almanya"
+            },
+            {
+                question: "Bu yapının adı nedir?",
+                image: "https://upload.wikimedia.org/wikipedia/commons/a/a1/Eiffel_Tower.jpg",
+                options: ["Eyfel Kulesi", "Özgürlük Heykeli", "Big Ben", "Kız Kulesi"],
+                answer: "Eyfel Kulesi"
+            },
+            {
+                question: "Bu meyve nedir?",
+                image: "https://upload.wikimedia.org/wikipedia/commons/2/2f/Cut_pineapple.jpg",
+                options: ["Mango", "Ananas", "Karpuz", "Elma"],
+                answer: "Ananas"
+            },
+            {
+                question: "Bu karakter kimdir?",
+                image: "https://upload.wikimedia.org/wikipedia/en/0/0c/SpongeBob_SquarePants_character.svg",
+                options: ["Batman", "SüngerBob", "Mario", "Shrek"],
+                answer: "SüngerBob"
+            }
+        ];
 
-    <div id="Tab4" class="tabcontent">
-        <h2>Mini Görselli Quiz</h2>
+        function loadQuiz() {
+            const container = document.getElementById("quizContainer");
+            quizData.forEach((q, index) => {
+                const questionDiv = document.createElement("div");
+                questionDiv.className = "quiz-question";
 
-        <div class="quiz-question">
-            <p>1. Bu hangi hayvandır?</p>
-            <img src="https://i.imgur.com/5c5E4iI.jpg" alt="hayvan">
-            <label><input type="radio" name="q1" value="a"> Kedi</label>
-            <label><input type="radio" name="q1" value="b"> Köpek</label>
-            <label><input type="radio" name="q1" value="c"> Tavşan</label>
-        </div>
+                const img = document.createElement("img");
+                img.src = q.image;
 
-        <div class="quiz-question">
-            <p>2. Bu hangi meyvedir?</p>
-            <img src="https://i.imgur.com/OZ8RiYx.jpg" alt="meyve">
-            <label><input type="radio" name="q2" value="a"> Elma</label>
-            <label><input type="radio" name="q2" value="b"> Portakal</label>
-            <label><input type="radio" name="q2" value="c"> Armut</label>
-        </div>
+                const questionText = document.createElement("p");
+                questionText.textContent = `${index + 1}. ${q.question}`;
 
-        <div class="quiz-question">
-            <p>3. Bu ülkenin bayrağı hangi ülkeye aittir?</p>
-            <img src="https://i.imgur.com/jT3zkMA.png" alt="bayrak">
-            <label><input type="radio" name="q3" value="a"> İtalya</label>
-            <label><input type="radio" name="q3" value="b"> Fransa</label>
-            <label><input type="radio" name="q3" value="c"> Almanya</label>
-        </div>
+                questionDiv.appendChild(img);
+                questionDiv.appendChild(questionText);
 
-        <div class="quiz-question">
-            <p>4. Bu karakter hangi çizgi filmden?</p>
-            <img src="https://i.imgur.com/PKTw2U3.png" alt="çizgi karakter">
-            <label><input type="radio" name="q4" value="a"> SüngerBob</label>
-            <label><input type="radio" name="q4" value="b"> Scooby Doo</label>
-            <label><input type="radio" name="q4" value="c"> Garfield</label>
-        </div>
+                q.options.forEach(opt => {
+                    const optDiv = document.createElement("div");
+                    optDiv.className = "quiz-option";
+                    optDiv.textContent = opt;
+                    optDiv.onclick = () => {
+                        const feedback = document.createElement("div");
+                        feedback.className = "quiz-feedback";
+                        feedback.textContent = opt === q.answer ? "Doğru 🎉" : `Yanlış ❌ Doğru cevap: ${q.answer}`;
+                        questionDiv.appendChild(feedback);
+                        // Tıklama sonrası diğer seçenekleri pasifleştir
+                        questionDiv.querySelectorAll('.quiz-option').forEach(el => el.style.pointerEvents = "none");
+                    };
+                    questionDiv.appendChild(optDiv);
+                });
 
-        <div class="quiz-question">
-            <p>5. Bu bir?</p>
-            <img src="https://i.imgur.com/qWYMbpa.png" alt="nesne">
-            <label><input type="radio" name="q5" value="a"> Tablet</label>
-            <label><input type="radio" name="q5" value="b"> Akıllı saat</label>
-            <label><input type="radio" name="q5" value="c"> Termometre</label>
-        </div>
+                container.appendChild(questionDiv);
+            });
+        }
 
-        <div style="text-align: center;">
-            <button class="check-btn" onclick="checkQuiz()">Cevapları Kontrol Et</button>
-            <p id="quiz-result"></p>
-        </div>
-    </div>
+        function openTab(evt, tabName) {
+            const tablinks = document.getElementsByClassName("tablink");
+            const tabcontent = document.getElementsByClassName("tabcontent");
+
+            for (let i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+            for (let i = 0; i < tablinks.length; i++) {
+                tablinks[i].classList.remove("active-tab");
+            }
+
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.classList.add("active-tab");
+        }
+
+        window.onload = loadQuiz;
+    </script>
 
 </body>
 </html>
