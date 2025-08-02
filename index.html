@@ -425,16 +425,16 @@
 
   <script>
     // Firebase config - kendi projenle değiştir!
-    const firebaseConfig = {
-      apiKey: "YOUR_API_KEY", // Firebase Konsolu'ndan al
-      authDomain: "web-sitesi-1.firebaseapp.com",
-      databaseURL: "https://web-sitesi-1-default-rtdb.europe-west1.firebasedatabase.app",
-      projectId: "web-sitesi-1",
-      storageBucket: "web-sitesi-1.appspot.com",
-      messagingSenderId: "277074952471",
-      appId: "YOUR_APP_ID", // Firebase Konsolu'ndan al
-      measurementId: "G-499384400"
-    };
+      const firebaseConfig = {
+        apiKey: "AIzaSyDS5EzYFQLMRk_Hf2fNycx11uKat4qvMsg",
+        authDomain: "web-sitesi-1.firebaseapp.com",
+        databaseURL: "https://web-sitesi-1-default-rtdb.europe-west1.firebasedatabase.app",
+        projectId: "web-sitesi-1",
+        storageBucket: "web-sitesi-1.firebasestorage.app",
+        messagingSenderId: "277074952471",
+        appId: "1:277074952471:web:e87b1503e12da265a03752",
+        measurementId: "G-4FRRDP93HR"
+      };
 
     // Firebase başlat
     const app = firebase.initializeApp(firebaseConfig);
@@ -482,7 +482,7 @@
             messageElem.classList.add('message');
             const time = new Date(msg.timestamp).toLocaleTimeString();
 
-            messageElem.innerHTML = <span class="user">${msg.user}</span>: ${msg.message} <span class="time">${time}</span>;
+            messageElem.innerHTML = `<span class="user">${msg.user}</span>: ${msg.message} <span class="time">${time}</span>`;
             messagesDiv.appendChild(messageElem);
           });
           messagesDiv.scrollTop = messagesDiv.scrollHeight;
