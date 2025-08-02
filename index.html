@@ -27,6 +27,13 @@
     /* Google Fonts üzerinden 'Inter' yazı tipini içe aktarır */
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
 
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+  
+  <!-- Add the Realtime Database SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+
+
     /* Tüm elemanlarda varsayılan margin ve padding'i kaldır, kutu modelini border-box yap */
     * {
       margin: 0;
@@ -291,6 +298,31 @@
       }
     }
   </script>
+
+  <script>
+  // Your web app's Firebase configuration
+  // TODO: Replace the following with your app's Firebase project configuration
+  // The values below are examples for web-sitesi-1 and must be verified from your Firebase Console
+  const firebaseConfig = {
+    apiKey: "YOUR_API_KEY", // Bu kısmı Firebase Konsolu'ndan almanız gerekecek!
+    authDomain: "web-sitesi-1.firebaseapp.com",
+    databaseURL: "https://web-sitesi-1-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId: "web-sitesi-1",
+    storageBucket: "web-sitesi-1.appspot.com",
+    messagingSenderId: "277074952471",
+    appId: "YOUR_APP_ID", // Bu kısmı da Firebase Konsolu'ndan almanız gerekecek!
+    measurementId: "G-499384400" // Google Analytics ölçüm kimliğiniz
+  };
+
+  // Initialize Firebase
+  const app = firebase.initializeApp(firebaseConfig);
+
+  // Get a reference to the database service
+  const database = app.database();
+
+  // Artık 'database' değişkenini kullanarak Realtime Database ile etkileşim kurabilirsiniz!
+</script>
+
 
 </body>
 
