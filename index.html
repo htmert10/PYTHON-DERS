@@ -1,297 +1,77 @@
-<!DOCTYPE html>
-<html lang="tr">
+<div id="Tab4" class="tabcontent">
+    <h2>Görselli Quiz Testi 🎯</h2>
 
-<head>
-  <meta charset="UTF-8" />
-  <!-- Sayfanın karakter kodlamasını belirtir, Türkçe karakterler için UTF-8 kullanılır -->
+    <form id="quizForm">
+        <!-- Soru 1 -->
+        <div class="question">
+            <p><strong>1. Bu hayvanın adı nedir?</strong></p>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Red_fox.jpg/320px-Red_fox.jpg" alt="Soru 1" width="200"><br>
+            <label><input type="radio" name="q1" value="a"> Tilki</label><br>
+            <label><input type="radio" name="q1" value="b"> Kurt</label><br>
+            <label><input type="radio" name="q1" value="c"> Çakal</label>
+        </div>
 
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <!-- Mobil cihazlarda ekran genişliğine göre sayfanın ölçeklenmesini sağlar -->
+        <!-- Soru 2 -->
+        <div class="question">
+            <p><strong>2. Bu ülkenin bayrağı hangi ülkeye aittir?</strong></p>
+            <img src="https://upload.wikimedia.org/wikipedia/en/thumb/b/ba/Flag_of_Germany.svg/320px-Flag_of_Germany.svg.png" alt="Soru 2" width="200"><br>
+            <label><input type="radio" name="q2" value="a"> Belçika</label><br>
+            <label><input type="radio" name="q2" value="b"> Almanya</label><br>
+            <label><input type="radio" name="q2" value="c"> Avusturya</label>
+        </div>
 
-  <title>Halil Mert | Kişisel Web Sitesi</title>
-  <!-- Tarayıcı sekmesinde görünen sayfa başlığı -->
+        <!-- Soru 3 -->
+        <div class="question">
+            <p><strong>3. Bu logonun ait olduğu uygulama nedir?</strong></p>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/5/58/Instagram-Icon.png" alt="Soru 3" width="100"><br>
+            <label><input type="radio" name="q3" value="a"> WhatsApp</label><br>
+            <label><input type="radio" name="q3" value="b"> Instagram</label><br>
+            <label><input type="radio" name="q3" value="c"> Snapchat</label>
+        </div>
 
-  <meta name="description" content="Halil Mert'in kişisel web sitesi. Projelerim, bilgilerim ve çalışmalarım burada." />
-  <!-- Google ve diğer arama motorları için sayfanın kısa açıklaması -->
+        <!-- Soru 4 -->
+        <div class="question">
+            <p><strong>4. Bu yiyeceğin adı nedir?</strong></p>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/06/Adana_kebab.jpg/320px-Adana_kebab.jpg" alt="Soru 4" width="200"><br>
+            <label><input type="radio" name="q4" value="a"> Lahmacun</label><br>
+            <label><input type="radio" name="q4" value="b"> Adana Kebap</label><br>
+            <label><input type="radio" name="q4" value="c"> Döner</label>
+        </div>
 
-  <meta name="keywords" content="Halil Mert, kişisel web sitesi, yazılım, html, programlama, developer, projeler" />
-  <!-- Arama motorlarının anlayabilmesi için sayfa ile ilgili anahtar kelimeler -->
+        <!-- Soru 5 -->
+        <div class="question">
+            <p><strong>5. Bu yapının adı nedir?</strong></p>
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Eiffel_Tower_from_the_Trocadero%2C_Paris_5_April_2011.jpg/320px-Eiffel_Tower_from_the_Trocadero%2C_Paris_5_April_2011.jpg" alt="Soru 5" width="200"><br>
+            <label><input type="radio" name="q5" value="a"> Pisa Kulesi</label><br>
+            <label><input type="radio" name="q5" value="b"> Eyfel Kulesi</label><br>
+            <label><input type="radio" name="q5" value="c"> Big Ben</label>
+        </div>
 
-  <meta name="robots" content="index, follow" />
-  <!-- Arama motorlarına sayfayı dizine ekle ve linkleri takip et talimatı -->
+        <br>
+        <button type="button" onclick="calculateScore()">Sonuçları Göster</button>
+    </form>
 
-  <meta name="google-site-verification" content="MJ_8HYyLW5EqQdFUXcw1LUu5qcPvNkj0-8CLjxLjAHc" />
-  <!-- Google Search Console doğrulama kodu -->
+    <p id="result"></p>
+</div>
 
-  <style>
-    /* Google Fonts üzerinden 'Inter' yazı tipini içe aktarır */
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
-
-    /* Tüm elemanlarda varsayılan margin ve padding'i kaldır, kutu modelini border-box yap */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    /* Sayfanın genel gövde stilidir */
-    body {
-      font-family: 'Inter', sans-serif;
-      font-size: 18px;
-      background-color: #1e1e1e;
-      color: #f4f4f4;
-      line-height: 1.6;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-
-    /* Sekme butonlarını tutan alanın stili */
-    .tabs {
-      display: flex;
-      background-color: #292929;
-      padding: 15px;
-      justify-content: center;
-      gap: 15px;
-      flex-wrap: wrap;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-      position: sticky;
-      top: 0;
-      z-index: 10;
-    }
-
-    /* Sekme butonlarının genel stili */
-    .tablink {
-      background-color: #444;
-      color: white;
-      border: none;
-      padding: 12px 20px;
-      font-size: 16px;
-      cursor: pointer;
-      border-radius: 8px;
-      transition: background-color 0.3s;
-      flex: 1 1 auto;
-      max-width: 150px;
-      text-align: center;
-    }
-
-    /* Buton üzerine gelince renk değişimi */
-    .tablink:hover {
-      background-color: #666;
-    }
-
-    /* Aktif (seçili) sekmenin stili */
-    .tablink.active {
-      background-color: #00aaff;
-      color: white;
-    }
-
-    /* Sekme içerik kutuları */
-    .tabcontent {
-      display: none;
-      padding: 40px 20px;
-      background-color: #1e1e1e;
-      animation: fadeIn 0.5s ease;
-      flex-grow: 1;
-      max-width: 900px;
-      margin: 0 auto 40px auto;
-      width: 100%;
-      box-sizing: border-box;
-    }
-
-    /* Görünürlük animasyonu */
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    /* Başlık stili */
-    h1,
-    h2 {
-      color: #00aaff;
-      margin-bottom: 20px;
-      font-weight: 700;
-    }
-
-    /* Paragraf ve liste stili */
-    p,
-    ul {
-      max-width: 800px;
-      margin-bottom: 20px;
-      word-wrap: break-word;
-    }
-
-    /* Liste madde işaretleri */
-    ul {
-      list-style: disc;
-      margin-left: 20px;
-    }
-
-    /* Resimler */
-    img {
-      max-width: 100%;
-      height: auto;
-      margin-top: 20px;
-      border-radius: 10px;
-      display: block;
-    }
-
-    /* Meme görselleri için özel stil */
-    #memes img {
-      width: 180px; /* Resim genişliği */
-      border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-      margin: 10px;
-    }
-
-    /* Meme alanını flexbox ile düzenle */
-    #memes {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 10px;
-    }
-
-    /* Mobil cihazlar için özel stil */
-    @media screen and (max-width: 600px) {
-      body {
-        font-size: 16px;
-      }
-
-      .tabs {
-        padding: 10px;
-        gap: 8px;
-      }
-
-      .tablink {
-        font-size: 14px;
-        padding: 10px 10px;
-        max-width: none;
-        flex: 1 1 100%;
-      }
-
-      .tabcontent {
-        padding: 20px 10px;
-        margin-bottom: 30px;
-      }
-
-      #memes img {
-        width: 100%;
-        margin: 5px 0;
-      }
-    }
-  </style>
-</head>
-
-<body>
-
-  <!-- Sekme butonları -->
-  <div class="tabs">
-    <button class="tablink" onclick="openTab(event, 'Tab1')">Ana Menü</button>
-    <button class="tablink" onclick="openTab(event, 'Tab2')">Kodlarım</button>
-    <button class="tablink" onclick="openTab(event, 'Tab3')">Projelerim</button>
-    <button class="tablink" onclick="openTab(event, 'Tab4')">Meme Köşesi</button> <!-- Yeni sekme -->
-  </div>
-
-  <!-- Ana Menü -->
-  <div id="Tab1" class="tabcontent">
-    <h1>Ana Menü</h1>
-    <p>Hoş geldin! Bu siteyi, yazılım projelerini ve denemelerini düzenli bir şekilde göstermek için hazırladım.</p>
-    <ul>
-      <li>HTML Deneme</li>
-      <li>CSS Deneme</li>
-      <li>GELİŞTİRME AŞAMASINDADIR</li>
-    </ul>
-    <img src="https://i.postimg.cc/zXZZgnpG/resim-2025-08-02-130553206.png" alt="Görsel örnek" />
-  </div>
-
-  <!-- Kodlarım -->
-  <div id="Tab2" class="tabcontent">
-    <h1>Kodlarım</h1>
-    <p>Kodlarım Burda Paylaşılıyor.</p>
-    <ul>
-      <li><strong>HTML:</strong> Yapılandırma ve içerik.</li>
-      <li><strong>CSS:</strong> Tasarım ve stil.</li>
-      <li><strong>JS:</strong> Dinamik davranış.</li>
-    </ul>
-  </div>
-
-  <!-- Projelerim -->
-  <div id="Tab3" class="tabcontent">
-    <h1>Projelerim</h1>
-    <p>Yaptığım web projeleri, oyunlar veya diğer yazılım uygulamaları burada listelenir.</p>
-  </div>
-
-  <!-- Meme Köşesi -->
-  <div id="Tab4" class="tabcontent">
-    <h1>Meme Köşesi</h1>
-    <p>Reddit'ten otomatik olarak güncel memeler yükleniyor. Yeni memeler görmek için butona tıklayın!</p>
-    <button onclick="getMemes()" style="background:#00aaff; color:#fff; border:none; padding:10px 20px; border-radius:8px; cursor:pointer;">Yeni Memeler Getir</button>
-    <div id="memes">Yükleniyor...</div> <!-- Meme görselleri buraya gelecek -->
-  </div>
-
-  <script>
-    // Sekmeler arası geçiş fonksiyonu
-    function openTab(evt, tabName) {
-      const tabcontent = document.getElementsByClassName("tabcontent");
-      const tablinks = document.getElementsByClassName("tablink");
-
-      // Tüm içerikleri gizle
-      for (let i = 0; i < tabcontent.length; i++) {
-        tabcontent[i].style.display = "none";
-      }
-      // Tüm butonların aktifliğini kaldır
-      for (let i = 0; i < tablinks.length; i++) {
-        tablinks[i].classList.remove("active");
-      }
-
-      // Seçilen sekmeyi göster ve butonu aktif yap
-      document.getElementById(tabName).style.display = "block";
-      evt.currentTarget.classList.add("active");
-    }
-
-    // Sayfa yüklendiğinde ilk sekmeyi otomatik aç
-    window.onload = function () {
-      document.querySelector(".tablink").click();
-      getMemes(); // Meme Köşesi için ilk meme yüklemesi
+<script>
+function calculateScore() {
+    const correctAnswers = {
+        q1: "a",
+        q2: "b",
+        q3: "b",
+        q4: "b",
+        q5: "b"
     };
+    let score = 0;
 
-    // Reddit'ten meme çeken fonksiyon
-    async function getMemes() {
-      const memeContainer = document.getElementById('memes');
-      memeContainer.innerHTML = "Yükleniyor...";
-      try {
-        // Reddit'in memes subreddit'inden günlük en iyi 10 postu alır
-        const response = await fetch('https://www.reddit.com/r/memes/top.json?limit=10&t=day');
-        const data = await response.json();
-        memeContainer.innerHTML = ""; // Önce içeriği temizle
-        data.data.children.forEach(item => {
-          const url = item.data.url;
-          // Sadece resim dosyalarını göster (jpg, png, jpeg)
-          if (url.endsWith('.jpg') || url.endsWith('.png') || url.endsWith('.jpeg')) {
-            const img = document.createElement('img');
-            img.src = url;
-            img.alt = item.data.title;
-            memeContainer.appendChild(img); // Resmi meme alanına ekle
-          }
-        });
-        // Eğer uygun meme yoksa bilgi ver
-        if (memeContainer.innerHTML === "") {
-          memeContainer.innerHTML = "Bugün uygun meme bulunamadı.";
+    for (let q in correctAnswers) {
+        const answer = document.querySelector(`input[name="${q}"]:checked`);
+        if (answer && answer.value === correctAnswers[q]) {
+            score++;
         }
-      } catch (e) {
-        memeContainer.innerHTML = "Memeler yüklenemedi.";
-      }
     }
-  </script>
 
-</body>
-
-</html>
+    document.getElementById("result").innerText = `Doğru sayınız: ${score} / 5`;
+}
+</script>
