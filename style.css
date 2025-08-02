@@ -1,12 +1,40 @@
 body {
-    font-family: Arial, sans-serif; /* Yazı tipi ailesi */
-    font-size: 35px; /* <p></p> etiketindeki ana yazının boyutu */
-    background-color: #322c2c; /* Web sayfasının arka plan rengi */
-    color: #ff0000; /* Metin rengi */
+    font-family: Arial, sans-serif;       /* Tüm sayfa yazı tipi */
+    font-size: 35px;                      /* Paragrafların yazı boyutu */
+    background-color: #322c2c;            /* Arka plan koyu gri */
+    color: #ff0000;                       /* Tüm metinler kırmızı */
 }
 
 h1 {
-    color: #3c00ff; /* Başlık rengi */
-    font-size: 24px; /* Başlık yazı tipi boyutu */
-    font-family: Georgia, serif; /* Başlıkta kullanılan yazı tipi ailesi */
+    color: #3c00ff;                       /* Başlık (h1) mavi */
+    font-size: 24px;                      /* Başlık daha küçük */
+    font-family: Georgia, serif;          /* Başlık yazı tipi klasik */
 }
+
+/* Sekme menüsü için */
+
+.page {
+  display: none;
+  padding: 20px;
+}
+
+.menu {
+  background-color: #222;
+  padding: 10px;
+  text-align: center;
+}
+
+.tablink {
+  background-color: #444;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  margin: 0 5px;
+  font-size: 18px;
+}
+
+.tablink:hover {
+  background-color: #666;
+}
+
