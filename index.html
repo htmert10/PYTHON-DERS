@@ -382,6 +382,21 @@
   </div>
 
   <script>
+
+    function leaveRoom() {
+  currentRoom = null;
+  currentUser = null;
+
+  // Chat alanını gizle
+  document.getElementById('chatArea').style.display = 'none';
+
+  // Mesajları temizle
+  document.getElementById('messages').innerHTML = 'Henüz odaya katılmadınız.';
+
+  // Giriş alanını göster
+  document.getElementById('loginArea').style.display = 'block';
+}
+
     // Sekmeler arası geçiş fonksiyonu
     function openTab(evt, tabName) {
       const tabcontent = document.getElementsByClassName("tabcontent");
