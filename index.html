@@ -1,120 +1,184 @@
-<!DOCTYPE html> <!-- HTML5 belgesi olduğunu belirtir -->
-<html lang="tr"> <!-- Sayfanın dilini Türkçe olarak ayarlar -->
+<!DOCTYPE html>
+<html lang="tr">
 
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" /> 
+  <!-- Sayfanın karakter kodlamasını belirtir, Türkçe karakterler için UTF-8 kullanılır -->
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- Mobil cihazlarda ekran genişliğine göre sayfanın ölçeklenmesini sağlar -->
+  
   <title>Halil Mert | Kişisel Web Sitesi</title>
-  <meta name="description" content="Halil Mert'in kişisel web sitesi. Projelerim, bilgilerim ve çalışmalarım burada.">
-  <meta name="keywords" content="Halil Mert, kişisel web sitesi, yazılım, html, programlama, developer, projeler">
-  <meta name="robots" content="index, follow">
+  <!-- Tarayıcı sekmesinde görünen sayfa başlığı -->
+
+  <meta name="description" content="Halil Mert'in kişisel web sitesi. Projelerim, bilgilerim ve çalışmalarım burada." />
+  <!-- Google ve diğer arama motorları için sayfanın kısa açıklaması -->
+
+  <meta name="keywords" content="Halil Mert, kişisel web sitesi, yazılım, html, programlama, developer, projeler" />
+  <!-- Arama motorlarının anlayabilmesi için sayfa ile ilgili anahtar kelimeler -->
+
+  <meta name="robots" content="index, follow" />
+  <!-- Arama motorlarına sayfayı dizine ekle ve linkleri takip et talimatı -->
+
   <meta name="google-site-verification" content="MJ_8HYyLW5EqQdFUXcw1LUu5qcPvNkj0-8CLjxLjAHc" />
+  <!-- Google Search Console doğrulama kodu -->
+
   <style>
-    /* Google Fonts üzerinden 'Inter' yazı tipini içe aktarıyoruz */
+    /* Google Fonts üzerinden 'Inter' yazı tipini içe aktarır */
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
 
-    /* Sayfa içindeki tüm elementlerin varsayılan boşluklarını sıfırla */
+    /* Tüm elemanlarda varsayılan margin ve padding'i kaldır, kutu modelini border-box yap */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
 
-    /* Genel gövde (body) stilleri */
+    /* Sayfanın genel gövde stilidir */
     body {
-      font-family: 'Inter', sans-serif; /* Yazı tipi: Inter */
-      font-size: 18px; /* Yazı boyutu */
-      background-color: #1e1e1e; /* Arkaplan rengi: koyu gri */
-      color: #f4f4f4; /* Metin rengi: açık gri */
-      line-height: 1.6; /* Satır aralığı */
+      font-family: 'Inter', sans-serif; /* Yazı tipi */
+      font-size: 18px; /* Yazı büyüklüğü */
+      background-color: #1e1e1e; /* Koyu arka plan rengi */
+      color: #f4f4f4; /* Açık metin rengi */
+      line-height: 1.6; /* Satır yüksekliği */
+      min-height: 100vh; /* Minimum yükseklik: tam ekran yüksekliği */
+      display: flex; /* Esnek kutu düzeni */
+      flex-direction: column; /* Elemanları dikey diz */
     }
 
-    /* Üstteki sekme butonlarının bulunduğu alan */
+    /* Sekme butonlarını tutan alanın stili */
     .tabs {
-      display: flex; /* Yatay hizalama */
-      background-color: #292929; /* Sekme arka planı */
+      display: flex; /* Yatayda elemanları yan yana sıralar */
+      background-color: #292929; /* Koyu gri arka plan */
       padding: 15px; /* İç boşluk */
       justify-content: center; /* Ortala */
-      gap: 15px; /* Sekmeler arası boşluk */
-      flex-wrap: wrap; /* Küçük ekranda alta geçebilir */
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Hafif gölge */
+      gap: 15px; /* Butonlar arası boşluk */
+      flex-wrap: wrap; /* Küçük ekranda butonları alt satıra geçirir */
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Hafif gölge efekti */
+      position: sticky; /* Sayfa kaydırılırken üstte sabit kalır */
+      top: 0; /* Üstten sıfır boşluk */
+      z-index: 10; /* Üst katmanda görünür */
     }
 
-    /* Sekme butonlarının görünümü */
+    /* Sekme butonlarının genel stili */
     .tablink {
-      background-color: #444; /* Buton rengi */
-      color: white; /* Yazı rengi */
+      background-color: #444; /* Buton arka plan rengi */
+      color: white; /* Buton yazı rengi */
       border: none; /* Kenarlık yok */
-      padding: 12px 20px; /* Buton iç boşluğu */
-      font-size: 16px;
+      padding: 12px 20px; /* İç boşluk */
+      font-size: 16px; /* Yazı büyüklüğü */
       cursor: pointer; /* Üzerine gelince el işareti */
-      border-radius: 8px; /* Köşeleri yumuşat */
-      transition: background-color 0.3s; /* Hover animasyonu */
+      border-radius: 8px; /* Kenar yumuşatma */
+      transition: background-color 0.3s; /* Renk değişimi animasyonu */
+      flex: 1 1 auto; /* Esnek boyutlandırma */
+      max-width: 150px; /* Maksimum genişlik */
+      text-align: center; /* Yazıyı ortala */
     }
 
-    /* Butonun üzerine gelindiğinde rengi değişir */
+    /* Buton üzerine gelince renk değişimi */
     .tablink:hover {
       background-color: #666;
     }
 
-    /* Aktif (seçili) sekme butonu */
+    /* Aktif (seçili) sekmenin stili */
     .tablink.active {
-      background-color: #00aaff; /* Mavi */
-      color: white;
+      background-color: #00aaff; /* Mavi arka plan */
+      color: white; /* Beyaz yazı */
     }
 
-    /* İçerik kutularının temel görünümü */
+    /* Sekme içerik kutuları */
     .tabcontent {
-      display: none; /* Başta görünmez */
+      display: none; /* Başlangıçta gizli */
       padding: 40px 20px; /* İç boşluk */
-      min-height: 100vh; /* Sayfanın tamamını kapla */
-      background-color: #1e1e1e; /* Arkaplan rengi */
-      animation: fadeIn 0.5s ease; /* Açılış animasyonu */
+      background-color: #1e1e1e; /* Koyu arka plan */
+      animation: fadeIn 0.5s ease; /* Yumuşak görünme animasyonu */
+      flex-grow: 1; /* Kalan alanı kapla */
+      max-width: 900px; /* Maksimum genişlik */
+      margin: 0 auto 40px auto; /* Ortala ve alt boşluk bırak */
+      width: 100%; /* Genişlik %100 */
+      box-sizing: border-box; /* Kutunun toplam genişliğine padding dahil */
     }
 
-    /* Sekme geçişi için fade-in animasyonu */
+    /* Görünürlük animasyonu */
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
 
-    /* Başlıkların rengi */
-    h1, h2 {
-      color: #00aaff;
-      margin-bottom: 20px;
+    /* Başlık stili */
+    h1,
+    h2 {
+      color: #00aaff; /* Mavi renk */
+      margin-bottom: 20px; /* Alt boşluk */
+      font-weight: 700; /* Kalın yazı */
     }
 
-    /* Paragraflar ve listeler genişlik sınırlı ve boşluklu */
-    p, ul {
-      max-width: 800px;
-      margin-bottom: 20px;
+    /* Paragraf ve liste stili */
+    p,
+    ul {
+      max-width: 800px; /* Maksimum genişlik */
+      margin-bottom: 20px; /* Alt boşluk */
+      word-wrap: break-word; /* Uzun kelimeleri satır sonuna sarmala */
     }
 
-    /* Liste stilleri */
+    /* Liste madde işaretleri */
     ul {
       list-style: disc; /* Nokta şeklinde madde işareti */
-      margin-left: 20px;
+      margin-left: 20px; /* Soldan boşluk */
     }
 
-    /* Resimlerin uyumlu görünmesi */
+    /* Resimler */
     img {
-      max-width: 100%;
-      height: auto;
-      margin-top: 20px;
-      border-radius: 10px;
+      max-width: 100%; /* Maksimum genişlik */
+      height: auto; /* Orantılı yükseklik */
+      margin-top: 20px; /* Üst boşluk */
+      border-radius: 10px; /* Kenarları yuvarla */
+      display: block; /* Blok olarak göster */
+    }
+
+    /* Mobil cihazlar için özel stil */
+    @media screen and (max-width: 600px) {
+      body {
+        font-size: 16px; /* Yazı boyutu küçülür */
+      }
+
+      .tabs {
+        padding: 10px; /* Daha az iç boşluk */
+        gap: 8px; /* Buton arası boşluk küçülür */
+      }
+
+      .tablink {
+        font-size: 14px; /* Daha küçük yazı */
+        padding: 10px 10px; /* Buton iç boşluk küçülür */
+        max-width: none; /* Maks genişlik kalkar */
+        flex: 1 1 100%; /* Butonlar alt alta sıralanır */
+      }
+
+      .tabcontent {
+        padding: 20px 10px; /* İç boşluk küçülür */
+        margin-bottom: 30px; /* Alt boşluk küçülür */
+      }
     }
   </style>
 </head>
 
 <body>
 
-  <!-- Sekme düğmeleri -->
+  <!-- Sekme butonları: Tıklanınca ilgili içerik görünür -->
   <div class="tabs">
     <button class="tablink" onclick="openTab(event, 'Tab1')">Ana Menü</button>
     <button class="tablink" onclick="openTab(event, 'Tab2')">Kodlarım</button>
     <button class="tablink" onclick="openTab(event, 'Tab3')">Projelerim</button>
   </div>
 
-  <!-- İlk sekme içeriği -->
+  <!-- Ana Menü içeriği -->
   <div id="Tab1" class="tabcontent">
     <h1>Ana Menü</h1>
     <p>Hoş geldin! Bu siteyi, yazılım projelerini ve denemelerini düzenli bir şekilde göstermek için hazırladım.</p>
@@ -123,10 +187,10 @@
       <li>CSS Deneme</li>
       <li>GELİŞTİRME AŞAMASINDADIR</li>
     </ul>
-    <img src="https://i.postimg.cc/zXZZgnpG/resim-2025-08-02-130553206.png" alt="Görsel örnek" /> <!-- Resim gösterimi -->
+    <img src="https://i.postimg.cc/zXZZgnpG/resim-2025-08-02-130553206.png" alt="Görsel örnek" />
   </div>
 
-  <!-- İkinci sekme içeriği -->
+  <!-- Kodlarım içeriği -->
   <div id="Tab2" class="tabcontent">
     <h1>Kodlarım</h1>
     <p>Kodlarım Burda Paylaşılıyor.</p>
@@ -137,27 +201,30 @@
     </ul>
   </div>
 
-  <!-- Üçüncü sekme içeriği -->
+  <!-- Projelerim içeriği -->
   <div id="Tab3" class="tabcontent">
     <h1>Projelerim</h1>
     <p>Yaptığım web projeleri, oyunlar veya diğer yazılım uygulamaları burada listelenir.</p>
   </div>
 
-  <!-- Sekme geçişlerini sağlayan JavaScript kodu -->
   <script>
+    // Sekmeler arası geçiş fonksiyonu
     function openTab(evt, tabName) {
-      const tabcontent = document.getElementsByClassName("tabcontent"); // Tüm içerikleri al
-      const tablinks = document.getElementsByClassName("tablink"); // Tüm butonları al
+      const tabcontent = document.getElementsByClassName("tabcontent"); // Tüm sekme içerikleri
+      const tablinks = document.getElementsByClassName("tablink"); // Tüm sekme butonları
 
+      // Tüm içerikleri gizle
       for (let i = 0; i < tabcontent.length; i++) {
-        tabcontent[i].style.display = "none"; // Tüm içerikleri gizle
+        tabcontent[i].style.display = "none";
       }
+      // Tüm butonların aktifliğini kaldır
       for (let i = 0; i < tablinks.length; i++) {
-        tablinks[i].classList.remove("active"); // Tüm sekmelerden 'active' sınıfını kaldır
+        tablinks[i].classList.remove("active");
       }
 
-      document.getElementById(tabName).style.display = "block"; // İlgili içeriği göster
-      evt.currentTarget.classList.add("active"); // Tıklanan sekmeyi aktif yap
+      // Seçilen sekmeyi göster ve butonu aktif yap
+      document.getElementById(tabName).style.display = "block";
+      evt.currentTarget.classList.add("active");
     }
 
     // Sayfa yüklendiğinde ilk sekmeyi otomatik aç
@@ -167,4 +234,5 @@
   </script>
 
 </body>
+
 </html>
