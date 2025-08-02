@@ -2,12 +2,12 @@
 <html lang="tr">
 
 <head>
-  <meta charset="UTF-8" /> 
+  <meta charset="UTF-8" />
   <!-- Sayfanın karakter kodlamasını belirtir, Türkçe karakterler için UTF-8 kullanılır -->
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <!-- Mobil cihazlarda ekran genişliğine göre sayfanın ölçeklenmesini sağlar -->
-  
+
   <title>Halil Mert | Kişisel Web Sitesi</title>
   <!-- Tarayıcı sekmesinde görünen sayfa başlığı -->
 
@@ -36,43 +36,43 @@
 
     /* Sayfanın genel gövde stilidir */
     body {
-      font-family: 'Inter', sans-serif; /* Yazı tipi */
-      font-size: 18px; /* Yazı büyüklüğü */
-      background-color: #1e1e1e; /* Koyu arka plan rengi */
-      color: #f4f4f4; /* Açık metin rengi */
-      line-height: 1.6; /* Satır yüksekliği */
-      min-height: 100vh; /* Minimum yükseklik: tam ekran yüksekliği */
-      display: flex; /* Esnek kutu düzeni */
-      flex-direction: column; /* Elemanları dikey diz */
+      font-family: 'Inter', sans-serif;
+      font-size: 18px;
+      background-color: #1e1e1e;
+      color: #f4f4f4;
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
     }
 
     /* Sekme butonlarını tutan alanın stili */
     .tabs {
-      display: flex; /* Yatayda elemanları yan yana sıralar */
-      background-color: #292929; /* Koyu gri arka plan */
-      padding: 15px; /* İç boşluk */
-      justify-content: center; /* Ortala */
-      gap: 15px; /* Butonlar arası boşluk */
-      flex-wrap: wrap; /* Küçük ekranda butonları alt satıra geçirir */
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Hafif gölge efekti */
-      position: sticky; /* Sayfa kaydırılırken üstte sabit kalır */
-      top: 0; /* Üstten sıfır boşluk */
-      z-index: 10; /* Üst katmanda görünür */
+      display: flex;
+      background-color: #292929;
+      padding: 15px;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      position: sticky;
+      top: 0;
+      z-index: 10;
     }
 
     /* Sekme butonlarının genel stili */
     .tablink {
-      background-color: #444; /* Buton arka plan rengi */
-      color: white; /* Buton yazı rengi */
-      border: none; /* Kenarlık yok */
-      padding: 12px 20px; /* İç boşluk */
-      font-size: 16px; /* Yazı büyüklüğü */
-      cursor: pointer; /* Üzerine gelince el işareti */
-      border-radius: 8px; /* Kenar yumuşatma */
-      transition: background-color 0.3s; /* Renk değişimi animasyonu */
-      flex: 1 1 auto; /* Esnek boyutlandırma */
-      max-width: 150px; /* Maksimum genişlik */
-      text-align: center; /* Yazıyı ortala */
+      background-color: #444;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 8px;
+      transition: background-color 0.3s;
+      flex: 1 1 auto;
+      max-width: 150px;
+      text-align: center;
     }
 
     /* Buton üzerine gelince renk değişimi */
@@ -82,21 +82,21 @@
 
     /* Aktif (seçili) sekmenin stili */
     .tablink.active {
-      background-color: #00aaff; /* Mavi arka plan */
-      color: white; /* Beyaz yazı */
+      background-color: #00aaff;
+      color: white;
     }
 
     /* Sekme içerik kutuları */
     .tabcontent {
-      display: none; /* Başlangıçta gizli */
-      padding: 40px 20px; /* İç boşluk */
-      background-color: #1e1e1e; /* Koyu arka plan */
-      animation: fadeIn 0.5s ease; /* Yumuşak görünme animasyonu */
-      flex-grow: 1; /* Kalan alanı kapla */
-      max-width: 900px; /* Maksimum genişlik */
-      margin: 0 auto 40px auto; /* Ortala ve alt boşluk bırak */
-      width: 100%; /* Genişlik %100 */
-      box-sizing: border-box; /* Kutunun toplam genişliğine padding dahil */
+      display: none;
+      padding: 40px 20px;
+      background-color: #1e1e1e;
+      animation: fadeIn 0.5s ease;
+      flex-grow: 1;
+      max-width: 900px;
+      margin: 0 auto 40px auto;
+      width: 100%;
+      box-sizing: border-box;
     }
 
     /* Görünürlük animasyonu */
@@ -115,55 +115,76 @@
     /* Başlık stili */
     h1,
     h2 {
-      color: #00aaff; /* Mavi renk */
-      margin-bottom: 20px; /* Alt boşluk */
-      font-weight: 700; /* Kalın yazı */
+      color: #00aaff;
+      margin-bottom: 20px;
+      font-weight: 700;
     }
 
     /* Paragraf ve liste stili */
     p,
     ul {
-      max-width: 800px; /* Maksimum genişlik */
-      margin-bottom: 20px; /* Alt boşluk */
-      word-wrap: break-word; /* Uzun kelimeleri satır sonuna sarmala */
+      max-width: 800px;
+      margin-bottom: 20px;
+      word-wrap: break-word;
     }
 
     /* Liste madde işaretleri */
     ul {
-      list-style: disc; /* Nokta şeklinde madde işareti */
-      margin-left: 20px; /* Soldan boşluk */
+      list-style: disc;
+      margin-left: 20px;
     }
 
     /* Resimler */
     img {
-      max-width: 100%; /* Maksimum genişlik */
-      height: auto; /* Orantılı yükseklik */
-      margin-top: 20px; /* Üst boşluk */
-      border-radius: 10px; /* Kenarları yuvarla */
-      display: block; /* Blok olarak göster */
+      max-width: 100%;
+      height: auto;
+      margin-top: 20px;
+      border-radius: 10px;
+      display: block;
+    }
+
+    /* Meme görselleri için özel stil */
+    #memes img {
+      width: 180px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+      margin: 10px;
+    }
+
+    /* Meme alanını flexbox ile düzenle */
+    #memes {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
     }
 
     /* Mobil cihazlar için özel stil */
     @media screen and (max-width: 600px) {
       body {
-        font-size: 16px; /* Yazı boyutu küçülür */
+        font-size: 16px;
       }
 
       .tabs {
-        padding: 10px; /* Daha az iç boşluk */
-        gap: 8px; /* Buton arası boşluk küçülür */
+        padding: 10px;
+        gap: 8px;
       }
 
       .tablink {
-        font-size: 14px; /* Daha küçük yazı */
-        padding: 10px 10px; /* Buton iç boşluk küçülür */
-        max-width: none; /* Maks genişlik kalkar */
-        flex: 1 1 100%; /* Butonlar alt alta sıralanır */
+        font-size: 14px;
+        padding: 10px 10px;
+        max-width: none;
+        flex: 1 1 100%;
       }
 
       .tabcontent {
-        padding: 20px 10px; /* İç boşluk küçülür */
-        margin-bottom: 30px; /* Alt boşluk küçülür */
+        padding: 20px 10px;
+        margin-bottom: 30px;
+      }
+
+      #memes img {
+        width: 100%;
+        margin: 5px 0;
       }
     }
   </style>
@@ -171,14 +192,15 @@
 
 <body>
 
-  <!-- Sekme butonları: Tıklanınca ilgili içerik görünür -->
+  <!-- Sekme butonları -->
   <div class="tabs">
     <button class="tablink" onclick="openTab(event, 'Tab1')">Ana Menü</button>
     <button class="tablink" onclick="openTab(event, 'Tab2')">Kodlarım</button>
     <button class="tablink" onclick="openTab(event, 'Tab3')">Projelerim</button>
+    <button class="tablink" onclick="openTab(event, 'Tab4')">Meme Köşesi</button>
   </div>
 
-  <!-- Ana Menü içeriği -->
+  <!-- Ana Menü -->
   <div id="Tab1" class="tabcontent">
     <h1>Ana Menü</h1>
     <p>Hoş geldin! Bu siteyi, yazılım projelerini ve denemelerini düzenli bir şekilde göstermek için hazırladım.</p>
@@ -190,7 +212,7 @@
     <img src="https://i.postimg.cc/zXZZgnpG/resim-2025-08-02-130553206.png" alt="Görsel örnek" />
   </div>
 
-  <!-- Kodlarım içeriği -->
+  <!-- Kodlarım -->
   <div id="Tab2" class="tabcontent">
     <h1>Kodlarım</h1>
     <p>Kodlarım Burda Paylaşılıyor.</p>
@@ -201,28 +223,33 @@
     </ul>
   </div>
 
-  <!-- Projelerim içeriği -->
+  <!-- Projelerim -->
   <div id="Tab3" class="tabcontent">
     <h1>Projelerim</h1>
     <p>Yaptığım web projeleri, oyunlar veya diğer yazılım uygulamaları burada listelenir.</p>
   </div>
 
+  <!-- Meme Köşesi -->
+  <div id="Tab4" class="tabcontent">
+    <h1>Meme Köşesi</h1>
+    <p>Reddit'ten otomatik olarak güncel memeler yükleniyor. Yeni memeler görmek için butona tıklayın!</p>
+    <button onclick="getMemes()" style="background:#00aaff; color:#fff; border:none; padding:10px 20px; border-radius:8px; cursor:pointer;">Yeni Memeler Getir</button>
+    <div id="memes">Yükleniyor...</div>
+  </div>
+
   <script>
     // Sekmeler arası geçiş fonksiyonu
     function openTab(evt, tabName) {
-      const tabcontent = document.getElementsByClassName("tabcontent"); // Tüm sekme içerikleri
-      const tablinks = document.getElementsByClassName("tablink"); // Tüm sekme butonları
+      const tabcontent = document.getElementsByClassName("tabcontent");
+      const tablinks = document.getElementsByClassName("tablink");
 
-      // Tüm içerikleri gizle
       for (let i = 0; i < tabcontent.length; i++) {
         tabcontent[i].style.display = "none";
       }
-      // Tüm butonların aktifliğini kaldır
       for (let i = 0; i < tablinks.length; i++) {
         tablinks[i].classList.remove("active");
       }
 
-      // Seçilen sekmeyi göster ve butonu aktif yap
       document.getElementById(tabName).style.display = "block";
       evt.currentTarget.classList.add("active");
     }
@@ -230,7 +257,34 @@
     // Sayfa yüklendiğinde ilk sekmeyi otomatik aç
     window.onload = function () {
       document.querySelector(".tablink").click();
+      getMemes(); // Meme Köşesi için ilk yüklemeyi yap
     };
+
+    // Reddit'ten meme çeken fonksiyon
+    async function getMemes() {
+      const memeContainer = document.getElementById('memes');
+      memeContainer.innerHTML = "Yükleniyor...";
+      try {
+        const response = await fetch('https://www.reddit.com/r/memes/top.json?limit=10&t=day');
+        const data = await response.json();
+        memeContainer.innerHTML = "";
+        data.data.children.forEach(item => {
+          const url = item.data.url;
+          // Sadece jpg, png ve jpeg uzantılı görselleri al
+          if (url.endsWith('.jpg') || url.endsWith('.png') || url.endsWith('.jpeg')) {
+            const img = document.createElement('img');
+            img.src = url;
+            img.alt = item.data.title;
+            memeContainer.appendChild(img);
+          }
+        });
+        if(memeContainer.innerHTML === "") {
+          memeContainer.innerHTML = "Bugün uygun meme bulunamadı.";
+        }
+      } catch (e) {
+        memeContainer.innerHTML = "Memeler yüklenemedi.";
+      }
+    }
   </script>
 
 </body>
