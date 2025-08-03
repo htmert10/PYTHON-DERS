@@ -351,6 +351,9 @@
   <div id="Tab3" class="tabcontent">
     <h1>Projelerim</h1>
     <p>Yaptığım web projeleri, oyunlar veya diğer yazılım uygulamaları burada listelenir.</p>
+
+    <!-- GitHub projelerinin yükleneceği alan -->
+    <div id="github-projects">Projeler yükleniyor...</div>
   </div>
 
   <!-- Meme Köşesi -->
@@ -382,25 +385,25 @@
   </div>
 
   <script>
-
+    // Chat çıkış işlemi için fonksiyon
     function leaveRoom() {
-  currentRoom = null;
-  currentUser = null;
+      currentRoom = null; // Oda bilgisi sıfırlandı
+      currentUser = null; // Kullanıcı bilgisi sıfırlandı
 
-  // Chat alanını gizle
-  document.getElementById('chatArea').style.display = 'none';
+      // Chat alanını gizle
+      document.getElementById('chatArea').style.display = 'none';
 
-  // Mesajları temizle
-  document.getElementById('messages').innerHTML = 'Henüz odaya katılmadınız.';
+      // Mesajları temizle
+      document.getElementById('messages').innerHTML = 'Henüz odaya katılmadınız.';
 
-  // Giriş alanını göster
-  document.getElementById('loginArea').style.display = 'block';
-}
+      // Giriş alanını göster
+      document.getElementById('loginArea').style.display = 'block';
+    }
 
     // Sekmeler arası geçiş fonksiyonu
     function openTab(evt, tabName) {
-      const tabcontent = document.getElementsByClassName("tabcontent");
-      const tablinks = document.getElementsByClassName("tablink");
+      const tabcontent = document.getElementsByClassName("tabcontent"); // Tüm sekme içerikleri
+      const tablinks = document.getElementsByClassName("tablink"); // Tüm sekme butonları
 
       // Tüm içerikleri gizle
       for (let i = 0; i < tabcontent.length; i++) {
@@ -418,34 +421,35 @@
 
     // Sayfa yüklendiğinde ilk sekmeyi otomatik aç
     window.onload = function () {
-      document.querySelector(".tablink").click();
+      document.querySelector(".tablink").click(); // İlk sekme otomatik açılır
       getMemes(); // Meme Köşesi için ilk meme yüklemesi
     };
   </script>
 
   <script>
     // Firebase config - kendi projenle değiştir!
-      const firebaseConfig = {
-        apiKey: "AIzaSyDS5EzYFQLMRk_Hf2fNycx11uKat4qvMsg",
-        authDomain: "web-sitesi-1.firebaseapp.com",
-        databaseURL: "https://web-sitesi-1-default-rtdb.europe-west1.firebasedatabase.app",
-        projectId: "web-sitesi-1",
-        storageBucket: "web-sitesi-1.firebasestorage.app",
-        messagingSenderId: "277074952471",
-        appId: "1:277074952471:web:e87b1503e12da265a03752",
-        measurementId: "G-4FRRDP93HR"
-      };
+    const firebaseConfig = {
+      apiKey: "AIzaSyDS5EzYFQLMRk_Hf2fNycx11uKat4qvMsg",
+      authDomain: "web-sitesi-1.firebaseapp.com",
+      databaseURL: "https://web-sitesi-1-default-rtdb.europe-west1.firebasedatabase.app",
+      projectId: "web-sitesi-1",
+      storageBucket: "web-sitesi-1.firebasestorage.app",
+      messagingSenderId: "277074952471",
+      appId: "1:277074952471:web:e87b1503e12da265a03752",
+      measurementId: "G-4FRRDP93HR"
+    };
 
     // Firebase başlat
     const app = firebase.initializeApp(firebaseConfig);
     const database = app.database();
 
-    let currentRoom = null;
-    let currentUser = null;
+    let currentRoom = null; // Mevcut chat odası
+    let currentUser = null; // Mevcut kullanıcı
 
+    // Odaya katılma fonksiyonu
     function joinRoom() {
-      const room = document.getElementById('roomInput').value.trim();
-      const user = document.getElementById('userInput').value.trim();
+      const room = document.getElementById('roomInput').value.trim(); // Oda numarası al
+      const user = document.getElementById('userInput').value.trim(); // Kullanıcı adı al
 
       if (!room) {
         alert('Lütfen oda numarasını girin!');
@@ -456,56 +460,108 @@
         return;
       }
 
-      currentRoom = room;
-      currentUser = user;
+      currentRoom = room; // Oda değişkenine ata
+      currentUser = user; // Kullanıcı değişkenine ata
 
+      // Giriş alanını gizle, chat alanını göster
       document.getElementById('loginArea').style.display = 'none';
       document.getElementById('chatArea').style.display = 'flex';
 
-      listenMessages();
+      listenMessages(); // Mesajları dinlemeye başla
     }
 
+    // Mesajları dinleme fonksiyonu
     function listenMessages() {
-      const messagesDiv = document.getElementById('messages');
-      const roomRef = database.ref('chatrooms/' + currentRoom + '/messages');
+      const messagesDiv = document.getElementById('messages'); // Mesajların gösterileceği alan
+      const roomRef = database.ref('chatrooms/' + currentRoom + '/messages'); // Firebase database yolu
 
-      roomRef.off();
-      messagesDiv.innerHTML = 'Yükleniyor...';
+      roomRef.off(); // Önceki dinleyicileri kaldır
+      messagesDiv.innerHTML = 'Yükleniyor...'; // Yükleniyor yazısı
 
+      // Verilerde değişiklik olursa tetiklenir
       roomRef.on('value', snapshot => {
-        const data = snapshot.val();
-        messagesDiv.innerHTML = '';
+        const data = snapshot.val(); // Verileri al
+        messagesDiv.innerHTML = ''; // Mesajları temizle
         if (data) {
           Object.keys(data).forEach(key => {
             const msg = data[key];
-            const messageElem = document.createElement('div');
-            messageElem.classList.add('message');
-            const time = new Date(msg.timestamp).toLocaleTimeString();
+            const messageElem = document.createElement('div'); // Yeni mesaj kutusu
+            messageElem.classList.add('message'); // Stil için class
 
+            const time = new Date(msg.timestamp).toLocaleTimeString(); // Mesaj zamanı formatla
+
+            // Mesaj içeriği kullanıcı adı, mesaj ve zaman
             messageElem.innerHTML = `<span class="user">${msg.user}</span>: ${msg.message} <span class="time">${time}</span>`;
-            messagesDiv.appendChild(messageElem);
+            messagesDiv.appendChild(messageElem); // Mesajı ekle
           });
-          messagesDiv.scrollTop = messagesDiv.scrollHeight;
+          messagesDiv.scrollTop = messagesDiv.scrollHeight; // Otomatik scroll aşağı
         } else {
-          messagesDiv.innerHTML = 'Henüz mesaj yok.';
+          messagesDiv.innerHTML = 'Henüz mesaj yok.'; // Mesaj yoksa göster
         }
       });
     }
 
+    // Mesaj gönderme fonksiyonu
     function sendMessage() {
-      const msgInput = document.getElementById('messageInput');
-      const message = msgInput.value.trim();
-      if (!message) return;
+      const msgInput = document.getElementById('messageInput'); // Mesaj inputu
+      const message = msgInput.value.trim(); // Mesajı al ve boşlukları temizle
+      if (!message) return; // Boşsa gönderme
 
-      const roomRef = database.ref('chatrooms/' + currentRoom + '/messages');
+      const roomRef = database.ref('chatrooms/' + currentRoom + '/messages'); // Firebase yol
       roomRef.push({
-        user: currentUser,
-        message: message,
-        timestamp: Date.now()
+        user: currentUser, // Kullanıcı adı
+        message: message, // Mesaj
+        timestamp: Date.now() // Zaman damgası
       });
 
-      msgInput.value = '';
+      msgInput.value = ''; // Mesaj kutusunu temizle
     }
+  </script>
+
+  <script>
+    // GitHub kullanıcı adını buraya yaz
+    const githubUsername = "htmert10";
+
+    // GitHub API'den projeleri çeken fonksiyon
+    function fetchGitHubProjects() {
+      const container = document.getElementById("github-projects"); // Projelerin gösterileceği alan
+      container.innerHTML = "Projeler yükleniyor..."; // Yükleniyor mesajı
+
+      // GitHub API'ye istek atılır
+      fetch(`https://api.github.com/users/${githubUsername}/repos`)
+        .then(response => response.json()) // JSON formatına çevir
+        .then(data => {
+          container.innerHTML = ""; // Önceki içeriği temizle
+          if (!Array.isArray(data)) { // Eğer gelen veri dizi değilse hata göster
+            container.innerHTML = "Projeler yüklenemedi.";
+            return;
+          }
+
+          // Her repo için bir blok oluştur
+          data.forEach(repo => {
+            const project = document.createElement("div"); // Div oluştur
+            project.style.marginBottom = "15px"; // Alt boşluk
+            project.style.borderBottom = "1px solid #444"; // Alt çizgi
+            project.style.paddingBottom = "10px"; // Alt iç boşluk
+
+            // Repo ismi, GitHub linki ve açıklaması eklenir
+            project.innerHTML = `
+              <strong>${repo.name}</strong><br/>
+              <a href="${repo.html_url}" target="_blank" style="color:#00aaff;">GitHub'da Görüntüle</a><br/>
+              <em>${repo.description || "Açıklama yok."}</em>
+            `;
+
+            container.appendChild(project); // Alana ekle
+          });
+        })
+        .catch(error => {
+          console.error("GitHub verileri alınamadı:", error); // Konsola hata yazdır
+          container.innerHTML = "GitHub verileri alınamadı."; // Kullanıcıya hata bildir
+        });
+    }
+
+    // Sayfa yüklendiğinde GitHub projelerini çek
+    window.addEventListener("load", fetchGitHubProjects);
   </script>
 
 </body>
