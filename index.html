@@ -256,16 +256,19 @@
       document.querySelector(".tablink").click();
       getMemes();
       fetchGitHubProjects();
-      // Instagram embed script
+
+      // Instagram embed script yüklemesi
       if (!window.instgrm) {
-        var script = document.createElement('script');
+        const script = document.createElement('script');
         script.src = "https://www.instagram.com/embed.js";
         script.async = true;
         document.body.appendChild(script);
+      } else {
+        window.instgrm.Embeds.process();
       }
     };
 
-    // GitHub projeleri
+    // GitHub projeleri yükle
     const githubUsername = "htmert10";
     function fetchGitHubProjects() {
       const container = document.getElementById("github-projects");
