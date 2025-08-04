@@ -1,159 +1,569 @@
 <!DOCTYPE html>
 <html lang="tr">
+
 <head>
   <meta charset="UTF-8" />
+  <!-- Sayfanın karakter kodlamasını belirtir, Türkçe karakterler için UTF-8 kullanılır -->
+
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- Mobil cihazlarda ekran genişliğine göre sayfanın ölçeklenmesini sağlar -->
+
   <title>Halil Mert | Kişisel Web Sitesi</title>
-  <meta name="description" content="Halil Mert'in kişisel web sitesi." />
-  <meta name="keywords" content="Halil Mert, web, yazılım, projeler" />
+  <!-- Tarayıcı sekmesinde görünen sayfa başlığı -->
+
+  <meta name="description" content="Halil Mert'in kişisel web sitesi. Projelerim, bilgilerim ve çalışmalarım burada." />
+  <!-- Google ve diğer arama motorları için sayfanın kısa açıklaması -->
+
+  <meta name="keywords" content="Halil Mert, kişisel web sitesi, yazılım, html, programlama, developer, projeler" />
+  <!-- Arama motorlarının anlayabilmesi için sayfa ile ilgili anahtar kelimeler -->
+
+  <meta name="robots" content="index, follow" />
+  <!-- Arama motorlarına sayfayı dizine ekle ve linkleri takip et talimatı -->
+
+  <meta name="google-site-verification" content="MJ_8HYyLW5EqQdFUXcw1LUu5qcPvNkj0-8CLjxLjAHc" />
+  <!-- Google Search Console doğrulama kodu -->
+
   <style>
+    /* Google Fonts üzerinden 'Inter' yazı tipini içe aktarır */
     @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    /* Tüm elemanlarda varsayılan margin ve padding'i kaldır, kutu modelini border-box yap */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* Sayfanın genel gövde stilidir */
     body {
       font-family: 'Inter', sans-serif;
       font-size: 18px;
       background-color: #1e1e1e;
       color: #f4f4f4;
       line-height: 1.6;
-      padding: 20px;
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
+      padding: 20px;
     }
+
+    /* Sekme butonlarını tutan alanın stili */
     .tabs {
       display: flex;
       background-color: #292929;
-      padding: 10px;
+      padding: 15px;
       justify-content: center;
-      gap: 10px;
+      gap: 15px;
       flex-wrap: wrap;
-      max-width: 900px;
-      width: 100%;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
       position: sticky;
       top: 0;
       z-index: 10;
+      width: 100%;
+      max-width: 900px;
+      margin: 0 auto;
     }
+
+    /* Sekme butonlarının genel stili */
     .tablink {
       background-color: #444;
       color: white;
       border: none;
-      padding: 10px 16px;
+      padding: 12px 20px;
       font-size: 16px;
       cursor: pointer;
       border-radius: 8px;
+      transition: background-color 0.3s;
+      flex: 1 1 auto;
+      max-width: 150px;
+      text-align: center;
     }
-    .tablink:hover { background-color: #666; }
-    .tablink.active { background-color: #00aaff; }
+
+    /* Buton üzerine gelince renk değişimi */
+    .tablink:hover {
+      background-color: #666;
+    }
+
+    /* Aktif (seçili) sekmenin stili */
+    .tablink.active {
+      background-color: #00aaff;
+      color: white;
+    }
+
+    /* Sekme içerik kutuları */
     .tabcontent {
       display: none;
-      padding: 30px;
-      background: #1e1e1e;
-      margin-top: 20px;
-      width: 100%;
+      padding: 40px 20px;
+      background-color: #1e1e1e;
+      animation: fadeIn 0.5s ease;
+      flex-grow: 1;
       max-width: 900px;
+      margin: 0 auto 40px auto;
+      width: 100%;
+      box-sizing: border-box;
+      min-height: 400px;
       border-radius: 12px;
       box-shadow: 0 0 10px rgba(0, 170, 255, 0.2);
     }
-    .tabcontent.active { display: block; }
+
+    /* Görünürlük animasyonu */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Başlık stili */
+    h1,
+    h2 {
+      color: #00aaff;
+      margin-bottom: 20px;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    /* Paragraf ve liste stili */
+    p,
+    ul {
+      max-width: 800px;
+      margin-bottom: 20px;
+      word-wrap: break-word;
+    }
+
+    /* Liste madde işaretleri */
+    ul {
+      list-style: disc;
+      margin-left: 20px;
+    }
+
+    /* Resimler */
+    img {
+      max-width: 100%;
+      height: auto;
+      margin-top: 20px;
+      border-radius: 10px;
+      display: block;
+    }
+
+    /* Meme görselleri için özel stil */
     #memes img {
       width: 180px;
       border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
       margin: 10px;
     }
-    #memes { display: flex; flex-wrap: wrap; justify-content: center; }
-    ul { margin-left: 20px; }
+
+    /* Meme alanını flexbox ile düzenle */
+    #memes {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    /* Mobil cihazlar için özel stil */
+    @media screen and (max-width: 600px) {
+      body {
+        font-size: 16px;
+      }
+
+      .tabs {
+        padding: 10px;
+        gap: 8px;
+      }
+
+      .tablink {
+        font-size: 14px;
+        padding: 10px 10px;
+        max-width: none;
+        flex: 1 1 100%;
+      }
+
+      .tabcontent {
+        padding: 20px 10px;
+        margin-bottom: 30px;
+      }
+
+      #memes img {
+        width: 100%;
+        margin: 5px 0;
+      }
+    }
+
+
+    /* Chat ile ilgili stiller */
+    #loginArea {
+      margin-bottom: 30px;
+      text-align: center;
+      max-width: 400px;
+      width: 100%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    #loginArea input {
+      width: calc(50% - 12px);
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: none;
+      margin: 0 6px 12px 6px;
+      outline: none;
+    }
+
+    #loginArea button {
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: none;
+      background-color: #00aaff;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    #loginArea button:hover {
+      background-color: #008ecc;
+    }
+
+    #chatArea {
+      display: none;
+      flex-direction: column;
+      max-width: 600px;
+      width: 100%;
+      background-color: #292929;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0, 170, 255, 0.5);
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    #messages {
+      height: 350px;
+      overflow-y: auto;
+      border: 1px solid #444;
+      border-radius: 8px;
+      padding: 10px;
+      background-color: #1e1e1e;
+      color: #eee;
+      font-size: 16px;
+      margin-bottom: 15px;
+    }
+
+    .message {
+      margin-bottom: 10px;
+      padding: 6px 10px;
+      background-color: #444;
+      border-radius: 8px;
+      word-wrap: break-word;
+    }
+
+    .message .user {
+      font-weight: 700;
+      color: #00aaff;
+      margin-right: 8px;
+    }
+
+    .message .time {
+      font-size: 12px;
+      color: #999;
+      float: right;
+    }
+
+    #chatInputArea {
+      display: flex;
+      gap: 10px;
+    }
+
+    #chatInputArea input {
+      flex-grow: 1;
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: none;
+      outline: none;
+    }
+
+    #chatInputArea button {
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: none;
+      background-color: #00aaff;
+      color: white;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    #chatInputArea button:hover {
+      background-color: #008ecc;
+    }
   </style>
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
 </head>
+
 <body>
 
+  <!-- Sekme butonları -->
   <div class="tabs">
     <button class="tablink" onclick="openTab(event, 'Tab1')">Ana Menü</button>
     <button class="tablink" onclick="openTab(event, 'Tab2')">Kodlarım</button>
     <button class="tablink" onclick="openTab(event, 'Tab3')">Projelerim</button>
     <button class="tablink" onclick="openTab(event, 'Tab4')">Meme Köşesi</button>
-    <button class="tablink" onclick="openTab(event, 'Tab5')">Teknoloji Haberleri</button>
+    <button class="tablink" onclick="openTab(event, 'Tab5')">Chat</button> <!-- Yeni Chat Sekmesi -->
   </div>
 
-  <div id="Tab1" class="tabcontent active">
+  <!-- Ana Menü -->
+  <div id="Tab1" class="tabcontent">
     <h1>Ana Menü</h1>
-    <p>Bu sitede projelerimi ve yazılım denemelerimi paylaşıyorum.</p>
-    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/37i9dQZF1DXcBWIGoYBM5M?utm_source=generator" width="100%" height="152" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+    <p>Hoş geldin! Bu siteyi, yazılım projelerini ve denemelerini düzenli bir şekilde göstermek için hazırladım.</p>
+    <ul>
+      <li>HTML Deneme</li>
+      <li>CSS Deneme</li>
+      <li>GELİŞTİRME AŞAMASINDADIR</li>
+    </ul>
+    <img src="https://i.postimg.cc/zXZZgnpG/resim-2025-08-02-130553206.png" alt="Görsel örnek" />
   </div>
 
+  <!-- Kodlarım -->
   <div id="Tab2" class="tabcontent">
     <h1>Kodlarım</h1>
+    <p>Kodlarım Burda Paylaşılıyor.</p>
     <ul>
       <li><strong>HTML:</strong> Yapılandırma ve içerik.</li>
-      <li><strong>CSS:</strong> Görsel stil.</li>
-      <li><strong>JS:</strong> Dinamik özellikler.</li>
+      <li><strong>CSS:</strong> Tasarım ve stil.</li>
+      <li><strong>JS:</strong> Dinamik davranış.</li>
     </ul>
   </div>
 
+  <!-- Projelerim -->
   <div id="Tab3" class="tabcontent">
     <h1>Projelerim</h1>
+    <p>Yaptığım web projeleri, oyunlar veya diğer yazılım uygulamaları burada listelenir.</p>
+
+    <!-- GitHub projelerinin yükleneceği alan -->
     <div id="github-projects">Projeler yükleniyor...</div>
   </div>
 
+  <!-- Meme Köşesi -->
   <div id="Tab4" class="tabcontent">
     <h1>Meme Köşesi</h1>
-    <button onclick="getMemes()" style="background:#00aaff;color:white;padding:10px;border:none;border-radius:8px;cursor:pointer;">Yeni Memeler Getir</button>
-    <div id="memes"></div>
+    <p>Reddit'ten otomatik olarak güncel memeler yükleniyor. Yeni memeler görmek için butona tıklayın!</p>
+    <button onclick="getMemes()" style="background:#00aaff; color:#fff; border:none; padding:10px 20px; border-radius:8px; cursor:pointer;">Yeni Memeler Getir</button>
+    <div id="memes">Yükleniyor...</div> <!-- Meme görselleri buraya gelecek -->
   </div>
 
+  <!-- Chat Sekmesi -->
   <div id="Tab5" class="tabcontent">
-    <h1>Teknoloji Haberleri</h1>
-    <div id="tech-news">Yükleniyor...</div>
+    <h1>Chat Odası</h1>
+    <div id="loginArea">
+      <input type="text" id="roomInput" placeholder="Oda Numarası (ör: 123)" />
+      <input type="text" id="userInput" placeholder="Kullanıcı Adı" />
+      <br />
+      <button onclick="joinRoom()">Odaya Katıl</button>
+    </div>
+
+    <div id="chatArea">
+      <div id="messages">Henüz odaya katılmadınız.</div>
+      <div id="chatInputArea">
+        <input type="text" id="messageInput" placeholder="Mesajınızı yazın..." />
+        <button onclick="sendMessage()">Gönder</button>
+        <button onclick="leaveRoom()" style="margin-bottom: 10px; background:#ff4444; color:#fff; border:none; padding:8px 15px; border-radius:6px; cursor:pointer;">Çıkış</button>
+      </div>
+    </div>
   </div>
 
   <script>
-    // Sekmeler
-    function openTab(evt, tabId) {
-      document.querySelectorAll('.tabcontent').forEach(tab => tab.classList.remove('active'));
-      document.querySelectorAll('.tablink').forEach(btn => btn.classList.remove('active'));
-      document.getElementById(tabId).classList.add('active');
-      evt.currentTarget.classList.add('active');
+    // Chat çıkış işlemi için fonksiyon
+    function leaveRoom() {
+      currentRoom = null; // Oda bilgisi sıfırlandı
+      currentUser = null; // Kullanıcı bilgisi sıfırlandı
+
+      // Chat alanını gizle
+      document.getElementById('chatArea').style.display = 'none';
+
+      // Mesajları temizle
+      document.getElementById('messages').innerHTML = 'Henüz odaya katılmadınız.';
+
+      // Giriş alanını göster
+      document.getElementById('loginArea').style.display = 'block';
     }
 
-    // GitHub Projeleri (örnek olarak kendi GitHub kullanıcı adını yaz)
-    fetch("https://api.github.com/users/htmert10/repos")
-      .then(res => res.json())
-      .then(data => {
-        const container = document.getElementById("github-projects");
-        container.innerHTML = '';
-        data.slice(0, 5).forEach(repo => {
-          const div = document.createElement("div");
-          div.innerHTML = `<p><strong>${repo.name}</strong>: ${repo.description || 'Açıklama yok.'}</p>`;
-          container.appendChild(div);
-        });
-      })
-      .catch(err => {
-        document.getElementById("github-projects").innerText = "Projeler alınamadı.";
-        console.error(err);
-      });
+    // Sekmeler arası geçiş fonksiyonu
+    function openTab(evt, tabName) {
+      const tabcontent = document.getElementsByClassName("tabcontent"); // Tüm sekme içerikleri
+      const tablinks = document.getElementsByClassName("tablink"); // Tüm sekme butonları
 
-    // Meme örnekleri
-    function getMemes() {
-      const memes = [
-        "https://i.redd.it/3g0ol1o0c9q71.jpg",
-        "https://i.redd.it/rjs7pov27zz61.jpg",
-        "https://i.redd.it/95rsm8xpbna81.jpg"
-      ];
-      const container = document.getElementById("memes");
-      container.innerHTML = "";
-      memes.forEach(src => {
-        const img = document.createElement("img");
-        img.src = src;
-        container.appendChild(img);
-      });
+      // Tüm içerikleri gizle
+      for (let i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+      }
+      // Tüm butonların aktifliğini kaldır
+      for (let i = 0; i < tablinks.length; i++) {
+        tablinks[i].classList.remove("active");
+      }
+
+      // Seçilen sekmeyi göster ve butonu aktif yap
+      document.getElementById(tabName).style.display = "block";
+      evt.currentTarget.classList.add("active");
     }
 
-    // Teknoloji haberleri (örnek)
-    const news = [
-      { title: "Yeni iPhone 16 Tanıtıldı", summary: "Apple'ın son telefonu iPhone 16, gelişmiş yapay zeka özellikleriyle geldi." },
-      { title: "NVIDIA RTX 5090 Sızdırıldı", summary: "Yeni nesil ekran kartı rekor performans vaat ediyor." }
-    ];
-    const newsContainer = document.getElementById("tech-news");
-    newsContainer.innerHTML = news.map(n => `<p><strong>${n.title}</strong><br>${n.summary}</p>`).join("");
+    // Sayfa yüklendiğinde ilk sekmeyi otomatik aç
+    window.onload = function () {
+      document.querySelector(".tablink").click(); // İlk sekme otomatik açılır
+      getMemes(); // Meme Köşesi için ilk meme yüklemesi
+    };
   </script>
+
+  <script>
+    // Firebase config - kendi projenle değiştir!
+    const firebaseConfig = {
+      apiKey: "AIzaSyDS5EzYFQLMRk_Hf2fNycx11uKat4qvMsg",
+      authDomain: "web-sitesi-1.firebaseapp.com",
+      databaseURL: "https://web-sitesi-1-default-rtdb.europe-west1.firebasedatabase.app",
+      projectId: "web-sitesi-1",
+      storageBucket: "web-sitesi-1.firebasestorage.app",
+      messagingSenderId: "277074952471",
+      appId: "1:277074952471:web:e87b1503e12da265a03752",
+      measurementId: "G-4FRRDP93HR"
+    };
+
+    // Firebase başlat
+    const app = firebase.initializeApp(firebaseConfig);
+    const database = app.database();
+
+    let currentRoom = null; // Mevcut chat odası
+    let currentUser = null; // Mevcut kullanıcı
+
+    // Odaya katılma fonksiyonu
+    function joinRoom() {
+      const room = document.getElementById('roomInput').value.trim(); // Oda numarası al
+      const user = document.getElementById('userInput').value.trim(); // Kullanıcı adı al
+
+      if (!room) {
+        alert('Lütfen oda numarasını girin!');
+        return;
+      }
+      if (!user) {
+        alert('Lütfen kullanıcı adınızı girin!');
+        return;
+      }
+
+      currentRoom = room; // Oda değişkenine ata
+      currentUser = user; // Kullanıcı değişkenine ata
+
+      // Giriş alanını gizle, chat alanını göster
+      document.getElementById('loginArea').style.display = 'none';
+      document.getElementById('chatArea').style.display = 'flex';
+
+      listenMessages(); // Mesajları dinlemeye başla
+    }
+
+    // Mesajları dinleme fonksiyonu
+    function listenMessages() {
+      const messagesDiv = document.getElementById('messages'); // Mesajların gösterileceği alan
+      const roomRef = database.ref('chatrooms/' + currentRoom + '/messages'); // Firebase database yolu
+
+      roomRef.off(); // Önceki dinleyicileri kaldır
+      messagesDiv.innerHTML = 'Yükleniyor...'; // Yükleniyor yazısı
+
+      // Verilerde değişiklik olursa tetiklenir
+      roomRef.on('value', snapshot => {
+        const data = snapshot.val(); // Verileri al
+        messagesDiv.innerHTML = ''; // Mesajları temizle
+        if (data) {
+          Object.keys(data).forEach(key => {
+            const msg = data[key];
+            const messageElem = document.createElement('div'); // Yeni mesaj kutusu
+            messageElem.classList.add('message'); // Stil için class
+
+            const time = new Date(msg.timestamp).toLocaleTimeString(); // Mesaj zamanı formatla
+
+            // Mesaj içeriği kullanıcı adı, mesaj ve zaman
+            messageElem.innerHTML = `<span class="user">${msg.user}</span>: ${msg.message} <span class="time">${time}</span>`;
+            messagesDiv.appendChild(messageElem); // Mesajı ekle
+          });
+          messagesDiv.scrollTop = messagesDiv.scrollHeight; // Otomatik scroll aşağı
+        } else {
+          messagesDiv.innerHTML = 'Henüz mesaj yok.'; // Mesaj yoksa göster
+        }
+      });
+    }
+
+    // Mesaj gönderme fonksiyonu
+    function sendMessage() {
+      const msgInput = document.getElementById('messageInput'); // Mesaj inputu
+      const message = msgInput.value.trim(); // Mesajı al ve boşlukları temizle
+      if (!message) return; // Boşsa gönderme
+
+      const roomRef = database.ref('chatrooms/' + currentRoom + '/messages'); // Firebase yol
+      roomRef.push({
+        user: currentUser, // Kullanıcı adı
+        message: message, // Mesaj
+        timestamp: Date.now() // Zaman damgası
+      });
+
+      msgInput.value = ''; // Mesaj kutusunu temizle
+    }
+  </script>
+
+  <script>
+    // GitHub kullanıcı adını buraya yaz
+    const githubUsername = "htmert10";
+
+    // GitHub API'den projeleri çeken fonksiyon
+    function fetchGitHubProjects() {
+      const container = document.getElementById("github-projects"); // Projelerin gösterileceği alan
+      container.innerHTML = "Projeler yükleniyor..."; // Yükleniyor mesajı
+
+      // GitHub API'ye istek atılır
+      fetch(`https://api.github.com/users/${githubUsername}/repos`)
+        .then(response => response.json()) // JSON formatına çevir
+        .then(data => {
+          container.innerHTML = ""; // Önceki içeriği temizle
+          if (!Array.isArray(data)) { // Eğer gelen veri dizi değilse hata göster
+            container.innerHTML = "Projeler yüklenemedi.";
+            return;
+          }
+
+          // Her repo için bir blok oluştur
+          data.forEach(repo => {
+            const project = document.createElement("div"); // Div oluştur
+            project.style.marginBottom = "15px"; // Alt boşluk
+            project.style.borderBottom = "1px solid #444"; // Alt çizgi
+            project.style.paddingBottom = "10px"; // Alt iç boşluk
+
+            // Repo ismi, GitHub linki ve açıklaması eklenir
+            project.innerHTML = `
+              <strong>${repo.name}</strong><br/>
+              <a href="${repo.html_url}" target="_blank" style="color:#00aaff;">GitHub'da Görüntüle</a><br/>
+              <em>${repo.description || "Açıklama yok."}</em>
+            `;
+
+            container.appendChild(project); // Alana ekle
+          });
+        })
+        .catch(error => {
+          console.error("GitHub verileri alınamadı:", error); // Konsola hata yazdır
+          container.innerHTML = "GitHub verileri alınamadı."; // Kullanıcıya hata bildir
+        });
+    }
+
+    // Sayfa yüklendiğinde GitHub projelerini çek
+    window.addEventListener("load", fetchGitHubProjects);
+  </script>
+
 </body>
+
 </html>
