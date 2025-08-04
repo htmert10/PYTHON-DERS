@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Halil Mert | Kişisel Web Sitesi</title>
   <style>
     body {
@@ -63,13 +63,27 @@
       color: #00e1ff;
     }
 
-    iframe {
-      border-radius: 12px;
-      margin-top: 15px;
+    .link {
+      color: #00aaff;
+      text-decoration: none;
     }
 
-    button#meme-btn {
+    .link:hover {
+      text-decoration: underline;
+    }
+
+    button#refresh-news {
       margin-top: 10px;
+      background-color: #00bfff;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 6px;
+      color: white;
+      cursor: pointer;
+    }
+
+    button#refresh-news:hover {
+      background-color: #008ecc;
     }
   </style>
 </head>
@@ -81,7 +95,6 @@
     <button class="tab-btn active" data-tab="main">Ana Menü</button>
     <button class="tab-btn" data-tab="code">Kodlarım</button>
     <button class="tab-btn" data-tab="projects">Projelerim</button>
-    <button class="tab-btn" data-tab="memes">Meme Köşesi</button>
     <button class="tab-btn" data-tab="news">Teknoloji Haberleri</button>
   </div>
 
@@ -90,10 +103,8 @@
     <ul>
       <li>Projelerimi görüntüleyebilirsin.</li>
       <li>HTML / CSS / JS kodlarımı görebilirsin.</li>
-      <li>Meme köşesi eğlenceli!</li>
+      <li>Güncel teknoloji haberlerini takip edebilirsin.</li>
     </ul>
-    <iframe src="https://open.spotify.com/embed/playlist/37i9dQZF1DWXRqgorJj26U" width="100%" height="152" frameborder="0"
-      allowtransparency="true" allow="encrypted-media"></iframe>
   </div>
 
   <div id="code" class="tab-content">
@@ -107,35 +118,21 @@
 
   <div id="projects" class="tab-content">
     <h2>Projelerim</h2>
-    <div class="card">
-      <div class="card-title">Unity Endless Runner</div>
-      <p>Çok oyunculu, online bir koşu oyunu. Photon Fusion kullanıldı.</p>
+    <div id="github-projects">
+      Projeler yükleniyor...
     </div>
-    <div class="card">
-      <div class="card-title">Firebase Sohbet Sistemi</div>
-      <p>HTML ve Firebase ile gerçek zamanlı sohbet uygulaması.</p>
-    </div>
-  </div>
-
-  <div id="memes" class="tab-content">
-    <h2>Meme Köşesi</h2>
-    <button id="meme-btn">Memeleri Göster</button>
-    <div id="meme-container" style="margin-top:10px;"></div>
   </div>
 
   <div id="news" class="tab-content">
     <h2>Teknoloji Haberleri</h2>
-    <div class="card">
-      <div class="card-title">Apple Vision Pro 2 sızdırıldı</div>
-      <p>Daha hafif tasarım, yeni özellikler yolda!</p>
-    </div>
-    <div class="card">
-      <div class="card-title">Tesla'dan güneş enerjisi atağı</div>
-      <p>Ev tipi bataryalarda %40 verim artışı sağlandı.</p>
+    <button id="refresh-news">Haberleri Yenile</button>
+    <div id="news-list" style="margin-top:15px;">
+      Haberler yükleniyor...
     </div>
   </div>
 
   <script>
+    // Sekme geçişleri
     const buttons = document.querySelectorAll(".tab-btn");
     const contents = document.querySelectorAll(".tab-content");
 
@@ -149,12 +146,82 @@
       });
     });
 
-    document.getElementById("meme-btn").addEventListener("click", () => {
-      const memeDiv = document.getElementById("meme-container");
-      memeDiv.innerHTML = `
-        <img src="https://i.redd.it/3rj4ux34hxj71.jpg" width="250" />
-        <img src="https://i.redd.it/somethingrandom.jpg" width="250" />
-      `;
+    // --- GitHub Projeleri Dinamik Çekme ---
+    const githubUsername = "htmert10"; // kendi kullanıcı adını yaz
+
+    function fetchGitHubProjects() {
+      const container = document.getElementById("github-projects");
+      container.innerHTML = "Projeler yükleniyor...";
+
+      fetch(`https://api.github.com/users/${githubUsername}/repos`)
+        .then(res => res.json())
+        .then(data => {
+          if (!Array.isArray(data)) {
+            container.innerHTML = "Projeler yüklenemedi.";
+            return;
+          }
+          if (data.length === 0) {
+            container.innerHTML = "Hiç proje bulunamadı.";
+            return;
+          }
+          container.innerHTML = "";
+          data.forEach(repo => {
+            const div = document.createElement("div");
+            div.classList.add("card");
+            div.innerHTML = `
+              <div class="card-title">${repo.name}</div>
+              <p>${repo.description || "Açıklama yok."}</p>
+              <a href="${repo.html_url}" target="_blank" class="link">GitHub'da Görüntüle</a>
+            `;
+            container.appendChild(div);
+          });
+        })
+        .catch(() => {
+          container.innerHTML = "Projeler yüklenirken hata oluştu.";
+        });
+    }
+
+    fetchGitHubProjects(); // sayfa yüklenince çek
+
+    // --- Teknoloji Haberleri ---
+    const newsData = [
+      {
+        title: "Apple Vision Pro 2 sızdırıldı",
+        description: "Daha hafif tasarım, yeni özellikler yolda!",
+        url: "https://www.macrumors.com/2025/08/04/apple-vision-pro-2-leaks/"
+      },
+      {
+        title: "Tesla'dan güneş enerjisi atağı",
+        description: "Ev tipi bataryalarda %40 verim artışı sağlandı.",
+        url: "https://www.teslarati.com/tesla-solar-battery-efficiency/"
+      },
+      {
+        title: "Yeni Nesil AI Çipleri piyasaya çıkıyor",
+        description: "Yapay zeka hızlandırıcı çiplerde devrim niteliğinde gelişmeler.",
+        url: "https://techcrunch.com/2025/08/03/ai-chips-next-gen/"
+      }
+    ];
+
+    function loadNews() {
+      const newsList = document.getElementById("news-list");
+      newsList.innerHTML = "";
+      newsData.forEach(item => {
+        const div = document.createElement("div");
+        div.classList.add("card");
+        div.innerHTML = `
+          <div class="card-title"><a href="${item.url}" target="_blank" class="link">${item.title}</a></div>
+          <p>${item.description}</p>
+        `;
+        newsList.appendChild(div);
+      });
+    }
+
+    document.getElementById("refresh-news").addEventListener("click", () => {
+      loadNews();
+    });
+
+    window.addEventListener("load", () => {
+      loadNews();
     });
   </script>
 </body>
