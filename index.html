@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Halil Mert | Kişisel Web Sitesi</title>
+  <title>Halil Mert | Kışisel Web Sitesi</title>
   <meta name="description" content="Halil Mert'in kişisel web sitesi. Projelerim, bilgilerim ve çalışmalarım burada." />
   <meta name="keywords" content="Halil Mert, kişisel web sitesi, yazılım, html, programlama, developer, projeler" />
   <meta name="robots" content="index, follow" />
@@ -139,15 +139,6 @@
       gap: 10px;
     }
 
-    /* Instagram video embeds container */
-    #instagram-videos blockquote.instagram-media {
-      margin: 0 auto 20px auto !important;
-      max-width: 540px !important;
-      width: 100% !important;
-      border-radius: 12px;
-      box-shadow: 0 0 10px rgba(0, 170, 255, 0.2);
-    }
-
     @media screen and (max-width: 600px) {
       body {
         font-size: 16px;
@@ -184,7 +175,7 @@
     <button class="tablink" onclick="openTab(event, 'Tab2')">Kodlarım</button>
     <button class="tablink" onclick="openTab(event, 'Tab3')">Projelerim</button>
     <button class="tablink" onclick="openTab(event, 'Tab4')">Meme Köşesi</button>
-    <button class="tablink" onclick="openTab(event, 'Tab5')">Instagram Videoları</button>
+    <button class="tablink" onclick="openTab(event, 'Tab5')">Teknoloji Haberleri</button>
   </div>
 
   <div id="Tab1" class="tabcontent">
@@ -195,11 +186,7 @@
       <li>CSS Deneme</li>
       <li>GELİŞTİRME AŞAMASINDADIR</li>
     </ul>
-    <iframe style="border-radius:12px" 
-      src="https://open.spotify.com/embed/playlist/37i9dQZF1DXcBWIGoYBM5M?utm_source=generator" 
-      width="100%" height="152" frameBorder="0" allowfullscreen="" 
-      allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
-      loading="lazy"></iframe>
+    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/37i9dQZF1DXcBWIGoYBM5M?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
   </div>
 
   <div id="Tab2" class="tabcontent">
@@ -226,104 +213,11 @@
   </div>
 
   <div id="Tab5" class="tabcontent">
-    <h1>Instagram Videoları</h1>
-    <p>Aşağıdaki Instagram videoları embed kodlarıdır. İstersen kendi videolarını buraya ekleyebilirsin.</p>
-
-    <!-- Örnek Instagram video embedleri, istediğin kadar çoğaltabilirsin -->
-    <div id="instagram-videos">
-      <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/CFq3XYZ1234/" data-instgrm-version="14" style="width:100%; max-width:540px; margin:auto;"></blockquote>
-      <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/CFq3XYZ5678/" data-instgrm-version="14" style="width:100%; max-width:540px; margin:auto;"></blockquote>
-    </div>
+    <h1>Teknoloji Haberleri</h1>
+    <div id="tech-news">Yükleniyor...</div>
   </div>
 
   <script>
     function openTab(evt, tabName) {
       const tabcontent = document.getElementsByClassName("tabcontent");
-      const tablinks = document.getElementsByClassName("tablink");
-
-      for (let i = 0; i < tabcontent.length; i++) {
-        tabcontent[i].style.display = "none";
-      }
-      for (let i = 0; i < tablinks.length; i++) {
-        tablinks[i].classList.remove("active");
-      }
-
-      document.getElementById(tabName).style.display = "block";
-      evt.currentTarget.classList.add("active");
-    }
-
-    window.onload = function () {
-      document.querySelector(".tablink").click();
-      getMemes();
-      fetchGitHubProjects();
-
-      // Instagram embed script yüklemesi
-      if (!window.instgrm) {
-        const script = document.createElement('script');
-        script.src = "https://www.instagram.com/embed.js";
-        script.async = true;
-        document.body.appendChild(script);
-      } else {
-        window.instgrm.Embeds.process();
-      }
-    };
-
-    // GitHub projeleri yükle
-    const githubUsername = "htmert10";
-    function fetchGitHubProjects() {
-      const container = document.getElementById("github-projects");
-      container.innerHTML = "Projeler yükleniyor...";
-
-      fetch(`https://api.github.com/users/${githubUsername}/repos`)
-        .then(res => res.json())
-        .then(data => {
-          container.innerHTML = "";
-          if (!Array.isArray(data)) {
-            container.innerHTML = "Projeler yüklenemedi.";
-            return;
-          }
-          data.forEach(repo => {
-            const project = document.createElement("div");
-            project.style.marginBottom = "15px";
-            project.style.borderBottom = "1px solid #444";
-            project.style.paddingBottom = "10px";
-
-            project.innerHTML = `
-              <strong>${repo.name}</strong><br/>
-              <a href="${repo.html_url}" target="_blank" style="color:#00aaff;">GitHub'da Görüntüle</a><br/>
-              <em>${repo.description || "Açıklama yok."}</em>
-            `;
-            container.appendChild(project);
-          });
-        })
-        .catch(() => {
-          container.innerHTML = "GitHub verileri alınamadı.";
-        });
-    }
-
-    // Meme API
-    async function getMemes() {
-      const memesContainer = document.getElementById('memes');
-      memesContainer.innerHTML = 'Yükleniyor...';
-      try {
-        const response = await fetch('https://meme-api.com/gimme/10');
-        const data = await response.json();
-        if (!data.memes) {
-          memesContainer.innerHTML = 'Memeler yüklenemedi.';
-          return;
-        }
-        memesContainer.innerHTML = '';
-        data.memes.forEach(meme => {
-          const img = document.createElement('img');
-          img.src = meme.url;
-          img.alt = meme.title;
-          memesContainer.appendChild(img);
-        });
-      } catch (error) {
-        memesContainer.innerHTML = 'Meme alınırken hata oluştu.';
-      }
-    }
-  </script>
-</body>
-
-</html>
+      const tablinks = document.getElementsByClassName("tab
