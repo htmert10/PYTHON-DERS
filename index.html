@@ -17,6 +17,7 @@
       padding: 0;
       box-sizing: border-box;
     }
+
     body {
       font-family: 'Inter', sans-serif;
       font-size: 18px;
@@ -29,6 +30,7 @@
       align-items: center;
       padding: 20px;
     }
+
     .tabs {
       display: flex;
       background-color: #292929;
@@ -44,6 +46,7 @@
       max-width: 900px;
       margin: 0 auto;
     }
+
     .tablink {
       background-color: #444;
       color: white;
@@ -57,13 +60,16 @@
       max-width: 150px;
       text-align: center;
     }
+
     .tablink:hover {
       background-color: #666;
     }
+
     .tablink.active {
       background-color: #00aaff;
       color: white;
     }
+
     .tabcontent {
       display: none;
       padding: 40px 20px;
@@ -78,16 +84,19 @@
       border-radius: 12px;
       box-shadow: 0 0 10px rgba(0, 170, 255, 0.2);
     }
+
     @keyframes fadeIn {
       from {
         opacity: 0;
         transform: translateY(20px);
       }
+
       to {
         opacity: 1;
         transform: translateY(0);
       }
     }
+
     h1,
     h2 {
       color: #00aaff;
@@ -95,16 +104,19 @@
       font-weight: 700;
       text-align: center;
     }
+
     p,
     ul {
       max-width: 800px;
       margin-bottom: 20px;
       word-wrap: break-word;
     }
+
     ul {
       list-style: disc;
       margin-left: 20px;
     }
+
     img {
       max-width: 100%;
       height: auto;
@@ -112,36 +124,52 @@
       border-radius: 10px;
       display: block;
     }
+
     #memes img {
       width: 180px;
       border-radius: 8px;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
       margin: 10px;
     }
+
     #memes {
       display: flex;
       flex-wrap: wrap;
       justify-content: center;
       gap: 10px;
     }
+
+    /* Instagram video embeds container */
+    #instagram-videos blockquote.instagram-media {
+      margin: 0 auto 20px auto !important;
+      max-width: 540px !important;
+      width: 100% !important;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0, 170, 255, 0.2);
+    }
+
     @media screen and (max-width: 600px) {
       body {
         font-size: 16px;
       }
+
       .tabs {
         padding: 10px;
         gap: 8px;
       }
+
       .tablink {
         font-size: 14px;
         padding: 10px 10px;
         max-width: none;
         flex: 1 1 100%;
       }
+
       .tabcontent {
         padding: 20px 10px;
         margin-bottom: 30px;
       }
+
       #memes img {
         width: 100%;
         margin: 5px 0;
@@ -156,7 +184,7 @@
     <button class="tablink" onclick="openTab(event, 'Tab2')">Kodlarım</button>
     <button class="tablink" onclick="openTab(event, 'Tab3')">Projelerim</button>
     <button class="tablink" onclick="openTab(event, 'Tab4')">Meme Köşesi</button>
-    <button class="tablink" onclick="openTab(event, 'Tab5')">Chat</button>
+    <button class="tablink" onclick="openTab(event, 'Tab5')">Instagram Videoları</button>
   </div>
 
   <div id="Tab1" class="tabcontent">
@@ -198,20 +226,14 @@
   </div>
 
   <div id="Tab5" class="tabcontent">
-    <h1>Chat Odası</h1>
-    <!--Start of Tawk.to Script-->
-      <script type="text/javascript">
-        var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-        (function(){
-        var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-        s1.async=true;
-        s1.src='https://embed.tawk.to/6891094a88d9b3192aa854b9/1j1r8oji0';
-        s1.charset='UTF-8';
-        s1.setAttribute('crossorigin','*');
-        s0.parentNode.insertBefore(s1,s0);
-        })();
-      </script>
-      <!--End of Tawk.to Script-->
+    <h1>Instagram Videoları</h1>
+    <p>Aşağıdaki Instagram videoları embed kodlarıdır. İstersen kendi videolarını buraya ekleyebilirsin.</p>
+
+    <!-- Örnek Instagram video embedleri, istediğin kadar çoğaltabilirsin -->
+    <div id="instagram-videos">
+      <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/CFq3XYZ1234/" data-instgrm-version="14" style="width:100%; max-width:540px; margin:auto;"></blockquote>
+      <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/p/CFq3XYZ5678/" data-instgrm-version="14" style="width:100%; max-width:540px; margin:auto;"></blockquote>
+    </div>
   </div>
 
   <script>
@@ -234,6 +256,13 @@
       document.querySelector(".tablink").click();
       getMemes();
       fetchGitHubProjects();
+      // Instagram embed script
+      if (!window.instgrm) {
+        var script = document.createElement('script');
+        script.src = "https://www.instagram.com/embed.js";
+        script.async = true;
+        document.body.appendChild(script);
+      }
     };
 
     // GitHub projeleri
