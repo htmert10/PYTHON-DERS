@@ -1,144 +1,73 @@
--<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="tr">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Halil Mert | Kişisel Web Sitesi</title>
-  <meta name="description" content="Halil Mert'in kişisel web sitesi. Projelerim, bilgilerim ve çalışmalarım burada." />
-  <meta name="keywords" content="Halil Mert, kişisel web sitesi, yazılım, html, programlama, developer, projeler" />
-  <meta name="robots" content="index, follow" />
-  <meta name="google-site-verification" content="MJ_8HYyLW5EqQdFUXcw1LUu5qcPvNkj0-8CLjxLjAHc" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-
+  <meta name="description" content="Halil Mert'in kişisel web sitesi." />
+  <meta name="keywords" content="Halil Mert, web, yazılım, projeler" />
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+    * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
       font-family: 'Inter', sans-serif;
+      font-size: 18px;
       background-color: #1e1e1e;
       color: #f4f4f4;
       line-height: 1.6;
       padding: 20px;
-      min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
     }
-
     .tabs {
       display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
       background-color: #292929;
-      padding: 15px;
+      padding: 10px;
+      justify-content: center;
       gap: 10px;
+      flex-wrap: wrap;
       max-width: 900px;
       width: 100%;
       position: sticky;
       top: 0;
       z-index: 10;
     }
-
     .tablink {
       background-color: #444;
       color: white;
       border: none;
-      padding: 12px 20px;
+      padding: 10px 16px;
       font-size: 16px;
-      border-radius: 8px;
       cursor: pointer;
-      transition: background-color 0.3s;
+      border-radius: 8px;
     }
-
-    .tablink:hover,
-    .tablink.active {
-      background-color: #00aaff;
-    }
-
+    .tablink:hover { background-color: #666; }
+    .tablink.active { background-color: #00aaff; }
     .tabcontent {
       display: none;
-      background-color: #1e1e1e;
-      padding: 30px 20px;
+      padding: 30px;
+      background: #1e1e1e;
       margin-top: 20px;
-      max-width: 900px;
       width: 100%;
+      max-width: 900px;
       border-radius: 12px;
       box-shadow: 0 0 10px rgba(0, 170, 255, 0.2);
-      animation: fadeIn 0.3s ease;
     }
-
-    .tabcontent.active {
-      display: block;
-    }
-
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(10px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    h1 {
-      color: #00aaff;
-      text-align: center;
-      margin-bottom: 20px;
-    }
-
-    p,
-    ul {
-      max-width: 800px;
-      margin-bottom: 20px;
-    }
-
-    ul {
-      list-style-type: disc;
-      padding-left: 20px;
-    }
-
-    #memes {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      justify-content: center;
-    }
-
+    .tabcontent.active { display: block; }
     #memes img {
       width: 180px;
       border-radius: 8px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+      margin: 10px;
     }
-
-    @media (max-width: 600px) {
-      body {
-        font-size: 16px;
-      }
-
-      .tablink {
-        font-size: 14px;
-        padding: 10px;
-        flex: 1 1 100%;
-      }
-
-      #memes img {
-        width: 100%;
-      }
-    }
+    #memes { display: flex; flex-wrap: wrap; justify-content: center; }
+    ul { margin-left: 20px; }
   </style>
 </head>
-
 <body>
+
   <div class="tabs">
-    <button class="tablink active" onclick="openTab(event, 'Tab1')">Ana Menü</button>
+    <button class="tablink" onclick="openTab(event, 'Tab1')">Ana Menü</button>
     <button class="tablink" onclick="openTab(event, 'Tab2')">Kodlarım</button>
     <button class="tablink" onclick="openTab(event, 'Tab3')">Projelerim</button>
     <button class="tablink" onclick="openTab(event, 'Tab4')">Meme Köşesi</button>
@@ -147,35 +76,28 @@
 
   <div id="Tab1" class="tabcontent active">
     <h1>Ana Menü</h1>
-    <p>Hoş geldin! Bu siteyi yazılım projelerini ve denemelerini göstermek için oluşturdum.</p>
-    <ul>
-      <li>HTML Deneme</li>
-      <li>CSS Deneme</li>
-      <li>Geliştirme Aşamasında</li>
-    </ul>
-    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/37i9dQZF1DXcBWIGoYBM5M?utm_source=generator" width="100%" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+    <p>Bu sitede projelerimi ve yazılım denemelerimi paylaşıyorum.</p>
+    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/37i9dQZF1DXcBWIGoYBM5M?utm_source=generator" width="100%" height="152" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
   </div>
 
   <div id="Tab2" class="tabcontent">
     <h1>Kodlarım</h1>
     <ul>
-      <li><strong>HTML:</strong> Yapılandırma</li>
-      <li><strong>CSS:</strong> Tasarım</li>
-      <li><strong>JS:</strong> Dinamik İşlevler</li>
+      <li><strong>HTML:</strong> Yapılandırma ve içerik.</li>
+      <li><strong>CSS:</strong> Görsel stil.</li>
+      <li><strong>JS:</strong> Dinamik özellikler.</li>
     </ul>
   </div>
 
   <div id="Tab3" class="tabcontent">
     <h1>Projelerim</h1>
-    <p>Yaptığım projeler burada listelenir.</p>
     <div id="github-projects">Projeler yükleniyor...</div>
   </div>
 
   <div id="Tab4" class="tabcontent">
     <h1>Meme Köşesi</h1>
-    <p>Reddit'ten otomatik olarak memeler yükleniyor.</p>
-    <button onclick="getMemes()" style="background:#00aaff;color:white;padding:10px 20px;border:none;border-radius:8px;cursor:pointer;">Yeni Memeler Getir</button>
-    <div id="memes">Yükleniyor...</div>
+    <button onclick="getMemes()" style="background:#00aaff;color:white;padding:10px;border:none;border-radius:8px;cursor:pointer;">Yeni Memeler Getir</button>
+    <div id="memes"></div>
   </div>
 
   <div id="Tab5" class="tabcontent">
@@ -184,36 +106,54 @@
   </div>
 
   <script>
-    function openTab(evt, tabName) {
-      const tablinks = document.querySelectorAll('.tablink');
-      const tabcontents = document.querySelectorAll('.tabcontent');
-
-      tabcontents.forEach(tab => tab.classList.remove('active'));
-      tablinks.forEach(btn => btn.classList.remove('active'));
-
-      document.getElementById(tabName).classList.add('active');
+    // Sekmeler
+    function openTab(evt, tabId) {
+      document.querySelectorAll('.tabcontent').forEach(tab => tab.classList.remove('active'));
+      document.querySelectorAll('.tablink').forEach(btn => btn.classList.remove('active'));
+      document.getElementById(tabId).classList.add('active');
       evt.currentTarget.classList.add('active');
     }
 
-    function getMemes() {
-      const memeContainer = document.getElementById("memes");
-      memeContainer.innerHTML = "Yükleniyor...";
-      fetch("https://meme-api.com/gimme/5")
-        .then(res => res.json())
-        .then(data => {
-          memeContainer.innerHTML = "";
-          const memes = data.memes || [data];
-          memes.forEach(meme => {
-            const img = document.createElement("img");
-            img.src = meme.url;
-            memeContainer.appendChild(img);
-          });
-        })
-        .catch(() => {
-          memeContainer.innerHTML = "Memeler yüklenirken hata oluştu.";
+    // GitHub Projeleri (örnek olarak kendi GitHub kullanıcı adını yaz)
+    fetch("https://api.github.com/users/htmert10/repos")
+      .then(res => res.json())
+      .then(data => {
+        const container = document.getElementById("github-projects");
+        container.innerHTML = '';
+        data.slice(0, 5).forEach(repo => {
+          const div = document.createElement("div");
+          div.innerHTML = `<p><strong>${repo.name}</strong>: ${repo.description || 'Açıklama yok.'}</p>`;
+          container.appendChild(div);
         });
+      })
+      .catch(err => {
+        document.getElementById("github-projects").innerText = "Projeler alınamadı.";
+        console.error(err);
+      });
+
+    // Meme örnekleri
+    function getMemes() {
+      const memes = [
+        "https://i.redd.it/3g0ol1o0c9q71.jpg",
+        "https://i.redd.it/rjs7pov27zz61.jpg",
+        "https://i.redd.it/95rsm8xpbna81.jpg"
+      ];
+      const container = document.getElementById("memes");
+      container.innerHTML = "";
+      memes.forEach(src => {
+        const img = document.createElement("img");
+        img.src = src;
+        container.appendChild(img);
+      });
     }
+
+    // Teknoloji haberleri (örnek)
+    const news = [
+      { title: "Yeni iPhone 16 Tanıtıldı", summary: "Apple'ın son telefonu iPhone 16, gelişmiş yapay zeka özellikleriyle geldi." },
+      { title: "NVIDIA RTX 5090 Sızdırıldı", summary: "Yeni nesil ekran kartı rekor performans vaat ediyor." }
+    ];
+    const newsContainer = document.getElementById("tech-news");
+    newsContainer.innerHTML = news.map(n => `<p><strong>${n.title}</strong><br>${n.summary}</p>`).join("");
   </script>
 </body>
-
 </html>
