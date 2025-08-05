@@ -75,17 +75,11 @@
       text-decoration: underline;
     }
 
-    #refresh-news {
-      background-color: #00bfff;
+    iframe.tech-widget {
+      width: 100%;
+      height: 600px;
       border: none;
-      padding: 8px 15px;
-      border-radius: 6px;
-      color: white;
-      cursor: pointer;
-      margin-bottom: 15px;
-      display: block;
-      margin-left: auto;
-      margin-right: auto;
+      border-radius: 10px;
     }
 
     iframe.spotify {
@@ -125,10 +119,8 @@
 
     <section id="teknoloji" class="tab">
       <h2>Teknoloji Haberleri</h2>
-      <button id="refresh-news">Haberleri Yenile</button>
-      <div id="news-list">
-        <p>Haberler yükleniyor...</p>
-      </div>
+      <!-- Haberler widget iframe -->
+      <iframe class="tech-widget" src="https://widget.t4.news/teknoloji" loading="lazy"></iframe>
     </section>
 
     <section id="muzik" class="tab">
@@ -175,38 +167,6 @@
     }
 
     loadGitHubProjects();
-
-    // Teknoloji haberleri
-    const newsData = [
-      {
-        title: "Tesla'dan güneş enerjisi atağı",
-        description: "Ev tipi bataryalarda %40 verim artışı sağlandı.",
-        url: "https://www.donanimhaber.com/tesla-ev-bataryalari-verim-artisi--123456"
-      },
-      {
-        title: "Yeni Nesil AI Çipleri piyasaya çıkıyor",
-        description: "Yapay zeka hızlandırıcı çiplerde devrim niteliğinde gelişmeler.",
-        url: "https://www.webtekno.com/ai-chip-yeni-nesil-h123456.html"
-      }
-    ];
-
-    function loadNews() {
-      const newsList = document.getElementById('news-list');
-      newsList.innerHTML = '';
-      newsData.forEach(item => {
-        const div = document.createElement('div');
-        div.classList.add('card');
-        div.innerHTML = `
-          <div class="card-title"><a href="${item.url}" target="_blank" class="link">${item.title}</a></div>
-          <p>${item.description}</p>
-        `;
-        newsList.appendChild(div);
-      });
-    }
-
-    document.getElementById('refresh-news').addEventListener('click', loadNews);
-
-    window.addEventListener('load', loadNews);
   </script>
 </body>
 
