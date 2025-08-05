@@ -14,39 +14,41 @@
       padding: 20px;
     }
 
-    h1 {
-      color: #00bfff;
-    }
-
-    .tabs {
-      display: flex;
-      flex-wrap: wrap;
+    header, footer {
+      text-align: center;
       margin-bottom: 20px;
-      gap: 10px;
     }
 
-    .tabs button {
-      padding: 10px 20px;
+    nav {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    nav button {
+      padding: 10px 15px;
+      margin: 0 5px;
+      background-color: #333;
       border: none;
-      background: #333;
       color: white;
       cursor: pointer;
       border-radius: 6px;
-      transition: 0.3s;
+      transition: background-color 0.3s;
     }
 
-    .tabs button.active {
+    nav button:hover, nav button.active {
       background-color: #00bfff;
     }
 
-    .tab-content {
+    section.tab {
       display: none;
+      background-color: #1c1c1c;
       padding: 15px;
       border-radius: 10px;
-      background-color: #1c1c1c;
+      max-width: 800px;
+      margin: auto;
     }
 
-    .tab-content.active {
+    section.tab.active {
       display: block;
     }
 
@@ -61,124 +63,151 @@
     .card-title {
       font-weight: bold;
       color: #00e1ff;
+      margin-bottom: 5px;
     }
 
-    .link {
+    a.link {
       color: #00aaff;
       text-decoration: none;
     }
 
-    .link:hover {
+    a.link:hover {
       text-decoration: underline;
     }
 
-    button#refresh-news {
-      margin-top: 10px;
+    #refresh-news {
       background-color: #00bfff;
       border: none;
       padding: 8px 15px;
       border-radius: 6px;
       color: white;
       cursor: pointer;
+      margin-bottom: 15px;
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
     }
 
-    button#refresh-news:hover {
-      background-color: #008ecc;
+    iframe.spotify {
+      border-radius: 12px;
+      width: 100%;
+      height: 380px;
+      border: none;
     }
   </style>
 </head>
 
 <body>
-  <h1>Halil Mert | Kişisel Web Sitesi</h1>
+  <header>
+    <h1>Halil Mert</h1>
+    <p>Kişisel Web Sitesi</p>
+  </header>
 
-  <div class="tabs">
-    <button class="tab-btn active" data-tab="main">Ana Menü</button>
-    <button class="tab-btn" data-tab="code">Kodlarım</button>
-    <button class="tab-btn" data-tab="projects">Projelerim</button>
-    <button class="tab-btn" data-tab="news">Teknoloji Haberleri</button>
-  </div>
+  <nav>
+    <button class="tab-btn active" data-tab="hakkimda">Hakkımda</button>
+    <button class="tab-btn" data-tab="projeler">Projelerim</button>
+    <button class="tab-btn" data-tab="teknoloji">Teknoloji Haberleri</button>
+    <button class="tab-btn" data-tab="muzik">Müzik</button>
+  </nav>
 
-  <div id="main" class="tab-content active">
-    <p>Halil Mert'in kişisel web sitesine hoş geldin!</p>
-    <ul>
-      <li>Projelerimi görüntüleyebilirsin.</li>
-      <li>HTML / CSS / JS kodlarımı görebilirsin.</li>
-      <li>Güncel teknoloji haberlerini takip edebilirsin.</li>
-    </ul>
-    <section>
-      <h2>🎵 Şu an ne dinliyorum?</h2>
-      <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/37i9dQZF1DXcBWIGoYBM5M?utm_source=generator" width="100%" height="152" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+  <main>
+    <section id="hakkimda" class="tab active">
+      <h2>Hakkımda</h2>
+      <p>Merhaba! Ben Halil Mert. Yazılım geliştiricisiyim ve bu benim kişisel web sitem.</p>
     </section>
-  </div>
 
-  <div id="code" class="tab-content">
-    <h2>Kodlarım</h2>
-    <ul>
-      <li><strong>HTML:</strong> Sayfa yapısı</li>
-      <li><strong>CSS:</strong> Tasarım ve renkler</li>
-      <li><strong>JavaScript:</strong> Etkileşimli özellikler</li>
-    </ul>
-  </div>
+    <section id="projeler" class="tab">
+      <h2>Projelerim</h2>
+      <div id="github-projects">
+        <p>GitHub projeleri yükleniyor...</p>
+      </div>
+    </section>
 
-  <div id="projects" class="tab-content">
-    <h2>Projelerim</h2>
-    <div id="github-projects">Projeler yükleniyor...</div>
-  </div>
+    <section id="teknoloji" class="tab">
+      <h2>Teknoloji Haberleri</h2>
+      <button id="refresh-news">Haberleri Yenile</button>
+      <div id="news-list">
+        <p>Haberler yükleniyor...</p>
+      </div>
+    </section>
 
-  <div id="news" class="tab-content">
-    <h2>Teknoloji Haberleri</h2>
-    <button id="refresh-news">Haberleri Yenile</button>
-    <div id="news-list" style="margin-top:15px;">Haberler yükleniyor...</div>
-  </div>
+    <section id="muzik" class="tab">
+      <h2>Spotify</h2>
+      <iframe class="spotify" src="https://open.spotify.com/embed/playlist/37i9dQZF1DXcBWIGoYBM5M?utm_source=generator" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Halil Mert</p>
+  </footer>
 
   <script>
-    const buttons = document.querySelectorAll(".tab-btn");
-    const contents = document.querySelectorAll(".tab-content");
+    // Sekme açma fonksiyonu
+    const tabs = document.querySelectorAll('.tab');
+    const buttons = document.querySelectorAll('.tab-btn');
 
     buttons.forEach(btn => {
-      btn.addEventListener("click", () => {
-        buttons.forEach(b => b.classList.remove("active"));
-        contents.forEach(c => c.classList.remove("active"));
-        btn.classList.add("active");
-        document.getElementById(btn.dataset.tab).classList.add("active");
+      btn.addEventListener('click', () => {
+        buttons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        tabs.forEach(tab => tab.classList.remove('active'));
+        document.getElementById(btn.dataset.tab).classList.add('active');
       });
     });
 
-    const githubUsername = "htmert10";
-
-    function fetchGitHubProjects() {
-      const container = document.getElementById("github-projects");
-      container.innerHTML = "Projeler yükleniyor...";
-
-      fetch(`https://api.github.com/users/${githubUsername}/repos`)
-        .then(res => res.json())
-        .then(data => {
-          if (!Array.isArray(data)) {
-            container.innerHTML = "Projeler yüklenemedi.";
-            return;
-          }
-          if (data.length === 0) {
-            container.innerHTML = "Hiç proje bulunamadı.";
-            return;
-          }
-          container.innerHTML = "";
-          data.forEach(repo => {
-            const div = document.createElement("div");
-            div.classList.add("card");
-            div.innerHTML = `
-              <div class="card-title">${repo.name}</div>
-              <p>${repo.description || "Açıklama yok."}</p>
-              <a href="${repo.html_url}" target="_blank" class="link">GitHub'da Görüntüle</a>
-            `;
-            container.appendChild(div);
-          });
-        })
-        .catch(() => {
-          container.innerHTML = "Projeler yüklenirken hata oluştu.";
+    // GitHub projelerini çekme
+    async function loadGitHubProjects() {
+      const container = document.getElementById('github-projects');
+      try {
+        const res = await fetch('https://api.github.com/users/htmert10/repos');
+        const repos = await res.json();
+        container.innerHTML = '';
+        repos.forEach(repo => {
+          const div = document.createElement('div');
+          div.classList.add('card');
+          div.innerHTML = `<div class="card-title"><a href="${repo.html_url}" target="_blank" class="link">${repo.name}</a></div>
+                           <p>${repo.description || 'Açıklama yok.'}</p>`;
+          container.appendChild(div);
         });
+      } catch {
+        container.innerHTML = '<p>Projeler yüklenemedi.</p>';
+      }
     }
 
-    fetchGitHubProjects();
+    loadGitHubProjects();
+
+    // Teknoloji haberleri
+    const newsData = [
+      {
+        title: "Tesla'dan güneş enerjisi atağı",
+        description: "Ev tipi bataryalarda %40 verim artışı sağlandı.",
+        url: "https://www.donanimhaber.com/tesla-ev-bataryalari-verim-artisi--123456"
+      },
+      {
+        title: "Yeni Nesil AI Çipleri piyasaya çıkıyor",
+        description: "Yapay zeka hızlandırıcı çiplerde devrim niteliğinde gelişmeler.",
+        url: "https://www.webtekno.com/ai-chip-yeni-nesil-h123456.html"
+      }
+    ];
+
+    function loadNews() {
+      const newsList = document.getElementById('news-list');
+      newsList.innerHTML = '';
+      newsData.forEach(item => {
+        const div = document.createElement('div');
+        div.classList.add('card');
+        div.innerHTML = `
+          <div class="card-title"><a href="${item.url}" target="_blank" class="link">${item.title}</a></div>
+          <p>${item.description}</p>
+        `;
+        newsList.appendChild(div);
+      });
+    }
+
+    document.getElementById('refresh-news').addEventListener('click', loadNews);
+
+    window.addEventListener('load', loadNews);
+  </script>
 </body>
 
 </html>
