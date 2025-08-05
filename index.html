@@ -75,13 +75,6 @@
       text-decoration: underline;
     }
 
-    iframe.tech-widget {
-      width: 100%;
-      height: 600px;
-      border: none;
-      border-radius: 10px;
-    }
-
     iframe.spotify {
       border-radius: 12px;
       width: 100%;
@@ -109,9 +102,55 @@
       background: #222;
       padding: 15px;
       border-radius: 10px;
-      min-height: 200px;
+      min-height: 300px;
       color: #eee;
       font-size: 16px;
+    }
+
+    /* Tic Tac Toe Styles */
+    #tictactoeGame {
+      display: grid;
+      grid-template-columns: repeat(3, 80px);
+      grid-template-rows: repeat(3, 80px);
+      gap: 10px;
+      justify-content: center;
+    }
+    .cell {
+      background: #333;
+      border-radius: 8px;
+      font-size: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      user-select: none;
+      color: #00bfff;
+      font-weight: bold;
+    }
+    .cell.disabled {
+      cursor: not-allowed;
+      color: #555;
+    }
+
+    /* RPS Styles */
+    #rpsGame button {
+      padding: 10px 20px;
+      margin: 0 10px;
+      background-color: #00bfff;
+      border: none;
+      color: white;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 18px;
+      transition: background-color 0.3s;
+    }
+    #rpsGame button:hover {
+      background-color: #008ecc;
+    }
+    #rpsResult {
+      margin-top: 15px;
+      font-size: 18px;
+      color: #00e1ff;
     }
   </style>
 </head>
@@ -125,7 +164,6 @@
   <nav>
     <button class="tab-btn active" data-tab="hakkimda">Hakkımda</button>
     <button class="tab-btn" data-tab="projeler">Projelerim</button>
-    <button class="tab-btn" data-tab="teknoloji">Teknoloji Haberleri</button>
     <button class="tab-btn" data-tab="muzik">Müzik</button>
     <button class="tab-btn" data-tab="oyunlar">Oyunlar</button>
   </nav>
@@ -141,12 +179,6 @@
       <div id="github-projects">
         <p>GitHub projeleri yükleniyor...</p>
       </div>
-    </section>
-
-    <section id="teknoloji" class="tab">
-      <h2>Teknoloji Haberleri</h2>
-      <!-- Haberler widget iframe -->
-      <iframe class="tech-widget" src="https://widget.t4.news/teknoloji" loading="lazy"></iframe>
     </section>
 
     <section id="muzik" class="tab">
@@ -206,28 +238,184 @@
 
     loadGitHubProjects();
 
-    // Oyunlar için placeholder fonksiyonlar
-
+    // Oyunlar gösterimi
     function showGame(game) {
       const container = document.getElementById('game-container');
       if (game === 'snake') {
         container.innerHTML = `<canvas id="snakeGame" width="300" height="300" style="background:#000; display:block; margin:auto;"></canvas>`;
         startSnakeGame();
       } else if (game === 'tictactoe') {
-        container.innerHTML = `<div id="tictactoeGame" style="text-align:center; font-size:20px; padding-top: 80px;">Tic Tac Toe oyunu burada olacak.</div>`;
+        container.innerHTML = `<div id="tictactoeGame"></div>`;
+        startTicTacToe();
       } else if (game === 'rps') {
-        container.innerHTML = `<div id="rpsGame" style="text-align:center; font-size:20px; padding-top: 80px;">Taş-Kağıt-Makas oyunu burada olacak.</div>`;
+        container.innerHTML = `
+          <div id="rpsGame">
+            <button onclick="rpsPlay('taş')">Taş</button>
+            <button onclick="rpsPlay('kağıt')">Kağıt</button>
+            <button onclick="rpsPlay('makas')">Makas</button>
+            <div id="rpsResult"></div>
+          </div>`;
       }
     }
 
-    // Basit Yılan oyunu başlangıcı (yalnızca placeholder)
+    // --- Yılan Oyunu Basit ---
     function startSnakeGame() {
       const canvas = document.getElementById('snakeGame');
       const ctx = canvas.getContext('2d');
-      ctx.fillStyle = 'lime';
-      ctx.font = '20px Arial';
-      ctx.textAlign = 'center';
-      ctx.fillText('Yılan oyunu burada!', canvas.width / 2, canvas.height / 2);
+      const grid = 20;
+      let count = 0;
+      let snake = [{x: 160, y: 160}];
+      let dx = grid;
+      let dy = 0;
+      let food = randomFood();
+      let gameOver = false;
+
+      function randomFood() {
+        return {
+          x: Math.floor(Math.random() * 15) * grid,
+          y: Math.floor(Math.random() * 15) * grid
+        };
+      }
+
+      document.addEventListener('keydown', function(e) {
+        if(e.key === 'ArrowLeft' && dx === 0) {
+          dx = -grid; dy = 0;
+        } else if(e.key === 'ArrowUp' && dy === 0) {
+          dx = 0; dy = -grid;
+        } else if(e.key === 'ArrowRight' && dx === 0) {
+          dx = grid; dy = 0;
+        } else if(e.key === 'ArrowDown' && dy === 0) {
+          dx = 0; dy = grid;
+        }
+      });
+
+      function gameLoop() {
+        if(gameOver) {
+          ctx.fillStyle = 'red';
+          ctx.font = '20px Arial';
+          ctx.textAlign = 'center';
+          ctx.fillText('Oyun Bitti! Sayfa yenileyin.', canvas.width/2, canvas.height/2);
+          return;
+        }
+        requestAnimationFrame(gameLoop);
+
+        if(++count < 4) return;
+        count = 0;
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Yılanın yeni konumu
+        let head = {x: snake[0].x + dx, y: snake[0].y + dy};
+
+        // Duvara çarpma kontrolü
+        if(head.x < 0 || head.x >= canvas.width || head.y < 0 || head.y >= canvas.height) {
+          gameOver = true;
+        }
+
+        // Kendi üzerine çarpma kontrolü
+        for(let i=0; i<snake.length; i++) {
+          if(head.x === snake[i].x && head.y === snake[i].y) {
+            gameOver = true;
+          }
+        }
+
+        snake.unshift(head);
+
+        // Yem yeme kontrolü
+        if(head.x === food.x && head.y === food.y) {
+          food = randomFood();
+        } else {
+          snake.pop();
+        }
+
+        // Yılanı çiz
+        ctx.fillStyle = 'lime';
+        snake.forEach(s => ctx.fillRect(s.x, s.y, grid-1, grid-1));
+
+        // Yemi çiz
+        ctx.fillStyle = 'red';
+        ctx.fillRect(food.x, food.y, grid-1, grid-1);
+      }
+
+      gameLoop();
+    }
+
+    // --- Tic Tac Toe Oyunu ---
+    function startTicTacToe() {
+      const container = document.getElementById('tictactoeGame');
+      container.innerHTML = '';
+
+      let board = Array(9).fill(null);
+      let currentPlayer = 'X';
+      let gameActive = true;
+
+      function checkWinner() {
+        const winPatterns = [
+          [0,1,2], [3,4,5], [6,7,8], // satırlar
+          [0,3,6], [1,4,7], [2,5,8], // sütunlar
+          [0,4,8], [2,4,6]           // çaprazlar
+        ];
+        for(const pattern of winPatterns) {
+          const [a,b,c] = pattern;
+          if(board[a] && board[a] === board[b] && board[b] === board[c]) {
+            return board[a];
+          }
+        }
+        return null;
+      }
+
+      function cellClick(i) {
+        if(!gameActive || board[i]) return;
+        board[i] = currentPlayer;
+        render();
+        const winner = checkWinner();
+        if(winner) {
+          container.innerHTML += `<p style="text-align:center; color:#0f0;">Kazanan: ${winner}</p>`;
+          gameActive = false;
+          return;
+        }
+        if(!board.includes(null)) {
+          container.innerHTML += `<p style="text-align:center; color:#ff0;">Berabere!</p>`;
+          gameActive = false;
+          return;
+        }
+        currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+      }
+
+      function render() {
+        container.innerHTML = '';
+        board.forEach((cell,i) => {
+          const cellDiv = document.createElement('div');
+          cellDiv.classList.add('cell');
+          if(!gameActive || cell) cellDiv.classList.add('disabled');
+          cellDiv.textContent = cell || '';
+          cellDiv.addEventListener('click', () => cellClick(i));
+          container.appendChild(cellDiv);
+        });
+      }
+
+      render();
+    }
+
+    // --- Taş-Kağıt-Makas Oyunu ---
+    function rpsPlay(userChoice) {
+      const choices = ['taş', 'kağıt', 'makas'];
+      const computerChoice = choices[Math.floor(Math.random()*3)];
+      let result = '';
+
+      if(userChoice === computerChoice) {
+        result = `Berabere! İkiniz de ${userChoice} seçtiniz.`;
+      } else if (
+        (userChoice === 'taş' && computerChoice === 'makas') ||
+        (userChoice === 'kağıt' && computerChoice === 'taş') ||
+        (userChoice === 'makas' && computerChoice === 'kağıt')
+      ) {
+        result = `Kazandınız! Bilgisayar ${computerChoice} seçti.`;
+      } else {
+        result = `Kaybettiniz! Bilgisayar ${computerChoice} seçti.`;
+      }
+
+      document.getElementById('rpsResult').textContent = result;
     }
   </script>
 </body>
