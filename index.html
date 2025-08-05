@@ -306,92 +306,97 @@
     }
 
     // --- Yılan Oyunu Basit ---
-    function startSnakeGame() {
-      const canvas = document.getElementById('snakeGame');
-      const ctx = canvas.getContext('2d');
-      const grid = 20;
-      let count = 0;
-      let snake = [{ x: 160, y: 160 }];
-      let dx = grid;
-      let dy = 0;
-      let food = randomFood();
-      let gameOver = false;
+function startSnakeGame() {
+  const canvas = document.getElementById('snakeGame');
+  const ctx = canvas.getContext('2d');
+  const grid = 20;
+  let count = 0;
+  // Başlangıç pozisyonunu biraz daha ortala
+  let snake = [{ x: 140, y: 140 }];
+  let dx = grid;
+  let dy = 0;
+  let food = randomFood();
+  let gameOver = false;
 
-      function randomFood() {
-        return {
-          x: Math.floor(Math.random() * 15) * grid,
-          y: Math.floor(Math.random() * 15) * grid
-        };
-      }
+  function randomFood() {
+    return {
+      x: Math.floor(Math.random() * (canvas.width / grid)) * grid,
+      y: Math.floor(Math.random() * (canvas.height / grid)) * grid
+    };
+  }
 
-      document.onkeydown = function (e) {
-        if (gameOver) return;
+  document.onkeydown = function (e) {
+    if (gameOver) return;
 
-        if (e.key === 'ArrowLeft' && dx === 0) {
-          dx = -grid;
-          dy = 0;
-        } else if (e.key === 'ArrowUp' && dy === 0) {
-          dx = 0;
-          dy = -grid;
-        } else if (e.key === 'ArrowRight' && dx === 0) {
-          dx = grid;
-          dy = 0;
-        } else if (e.key === 'ArrowDown' && dy === 0) {
-          dx = 0;
-          dy = grid;
-        }
-      };
-
-      function gameLoop() {
-        if (gameOver) {
-          ctx.fillStyle = 'red';
-          ctx.font = '20px Arial';
-          ctx.textAlign = 'center';
-          ctx.fillText('Oyun Bitti! Sayfayı yenileyin.', canvas.width / 2, canvas.height / 2);
-          return;
-        }
-        requestAnimationFrame(gameLoop);
-
-        if (++count < 4) return;
-        count = 0;
-
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-        // Yılanın yeni konumu
-        let head = { x: snake[0].x + dx, y: snake[0].y + dy };
-
-        // Duvara çarpma kontrolü
-        if (head.x < 0 || head.x >= canvas.width || head.y < 0 || head.y >= canvas.height) {
-          gameOver = true;
-        }
-
-        // Kendi üzerine çarpma kontrolü
-        for (let i = 0; i < snake.length; i++) {
-          if (head.x === snake[i].x && head.y === snake[i].y) {
-            gameOver = true;
-          }
-        }
-
-        snake.unshift(head);
-
-        // Yem yeme kontrolü
-        if (head.x === food.x && head.y === food.y) {
-          food = randomFood();
-        } else {
-          snake.pop();
-        }
-
-        // Yılanı çiz
-        ctx.fillStyle = 'lime';
-        snake.forEach(s => ctx.fillRect(s.x, s.y, grid - 1, grid - 1));
-
-        // Yemi çiz
-        ctx.fillStyle = 'red';
-        ctx.fillRect(food.x, food.y, grid - 1, grid - 1);
-      }
-
-      gameLoop();
+    // Geri dönüşü engelle
+    if (e.key === 'ArrowLeft' && dx === 0) {
+      dx = -grid;
+      dy = 0;
+    } else if (e.key === 'ArrowUp' && dy === 0) {
+      dx = 0;
+      dy = -grid;
+    } else if (e.key === 'ArrowRight' && dx === 0) {
+      dx = grid;
+      dy = 0;
+    } else if (e.key === 'ArrowDown' && dy === 0) {
+      dx = 0;
+      dy = grid;
     }
+  };
+
+  function gameLoop() {
+    if (gameOver) {
+      ctx.fillStyle = 'red';
+      ctx.font = '20px Arial';
+      ctx.textAlign = 'center';
+      ctx.fillText('Oyun Bitti! Sayfayı yenileyin.', canvas.width / 2, canvas.height / 2);
+      return;
+    }
+    requestAnimationFrame(gameLoop);
+
+    if (++count < 4) return; // Oyun hızını ayarla
+    count = 0;
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Yılanın yeni konumu
+    let head = { x: snake[0].x + dx, y: snake[0].y + dy };
+
+    // Duvara çarpma kontrolü
+    if (head.x < 0 || head.x >= canvas.width || head.y < 0 || head.y >= canvas.height) {
+      gameOver = true;
+    }
+
+    // Kendi üzerine çarpma kontrolü
+    for (let i = 0; i < snake.length; i++) {
+      if (head.x === snake[i].x && head.y === snake[i].y) {
+        gameOver = true;
+      }
+    }
+
+    if (gameOver) return;
+
+    snake.unshift(head);
+
+    // Yem yeme kontrolü
+    if (head.x === food.x && head.y === food.y) {
+      food = randomFood();
+    } else {
+      snake.pop();
+    }
+
+    // Yılanı çiz
+    ctx.fillStyle = 'lime';
+    snake.forEach(s => ctx.fillRect(s.x, s.y, grid - 1, grid - 1));
+
+    // Yemi çiz
+    ctx.fillStyle = 'red';
+    ctx.fillRect(food.x, food.y, grid - 1, grid - 1);
+  }
+
+  gameLoop();
+}
+
 
     // --- Tic Tac Toe Oyunu ---
     function startTicTacToe() {
