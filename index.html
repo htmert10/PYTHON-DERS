@@ -104,15 +104,11 @@
       <li>Projelerimi görüntüleyebilirsin.</li>
       <li>HTML / CSS / JS kodlarımı görebilirsin.</li>
       <li>Güncel teknoloji haberlerini takip edebilirsin.</li>
-      <section>
-        <h2>🎵 Şu an ne dinliyorum?</h2>
-        <iframe style="border-radius:12px"
-          src="https://open.spotify.com/embed/playlist/37i9dQZF1DXcBWIGoYBM5M?utm_source=generator"
-          width="100%" height="152" frameBorder="0" allowfullscreen=""
-          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-          loading="lazy"></iframe>
-      </section>
     </ul>
+    <section>
+      <h2>🎵 Şu an ne dinliyorum?</h2>
+      <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/37i9dQZF1DXcBWIGoYBM5M?utm_source=generator" width="100%" height="152" frameborder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+    </section>
   </div>
 
   <div id="code" class="tab-content">
@@ -126,21 +122,16 @@
 
   <div id="projects" class="tab-content">
     <h2>Projelerim</h2>
-    <div id="github-projects">
-      Projeler yükleniyor...
-    </div>
+    <div id="github-projects">Projeler yükleniyor...</div>
   </div>
 
   <div id="news" class="tab-content">
     <h2>Teknoloji Haberleri</h2>
     <button id="refresh-news">Haberleri Yenile</button>
-    <div id="news-list" style="margin-top:15px;">
-      Haberler yükleniyor...
-    </div>
+    <div id="news-list" style="margin-top:15px;">Haberler yükleniyor...</div>
   </div>
 
   <script>
-    // Sekme geçişleri
     const buttons = document.querySelectorAll(".tab-btn");
     const contents = document.querySelectorAll(".tab-content");
 
@@ -148,14 +139,12 @@
       btn.addEventListener("click", () => {
         buttons.forEach(b => b.classList.remove("active"));
         contents.forEach(c => c.classList.remove("active"));
-
         btn.classList.add("active");
         document.getElementById(btn.dataset.tab).classList.add("active");
       });
     });
 
-    // --- GitHub Projeleri Dinamik Çekme ---
-    const githubUsername = "htmert10"; // kendi kullanıcı adını yaz
+    const githubUsername = "htmert10";
 
     function fetchGitHubProjects() {
       const container = document.getElementById("github-projects");
@@ -189,24 +178,23 @@
         });
     }
 
-    fetchGitHubProjects(); // sayfa yüklenince çek
+    fetchGitHubProjects();
 
-    // --- Teknoloji Haberleri ---
     const newsData = [
       {
         title: "Apple Vision Pro 2 sızdırıldı",
         description: "Daha hafif tasarım, yeni özellikler yolda!",
-        url: "https://www.macrumors.com/2025/08/04/apple-vision-pro-2-leaks/"
+        url: "https://www.webtekno.com/apple-vision-pro-2-sizdirildi-h123456.html"
       },
       {
         title: "Tesla'dan güneş enerjisi atağı",
         description: "Ev tipi bataryalarda %40 verim artışı sağlandı.",
-        url: "https://www.teslarati.com/tesla-solar-battery-efficiency/"
+        url: "https://www.donanimhaber.com/tesla-ev-bataryalari-verim-artisi--123456"
       },
       {
         title: "Yeni Nesil AI Çipleri piyasaya çıkıyor",
         description: "Yapay zeka hızlandırıcı çiplerde devrim niteliğinde gelişmeler.",
-        url: "https://techcrunch.com/2025/08/03/ai-chips-next-gen/"
+        url: "https://www.webtekno.com/ai-chip-yeni-nesil-h123456.html"
       }
     ];
 
@@ -224,13 +212,8 @@
       });
     }
 
-    document.getElementById("refresh-news").addEventListener("click", () => {
-      loadNews();
-    });
-
-    window.addEventListener("load", () => {
-      loadNews();
-    });
+    document.getElementById("refresh-news").addEventListener("click", loadNews);
+    window.addEventListener("load", loadNews);
   </script>
 </body>
 
