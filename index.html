@@ -179,42 +179,6 @@
     }
 
     fetchGitHubProjects();
-
-    const newsData = [
-      {
-        title: "Apple Vision Pro 2 sızdırıldı",
-        description: "Daha hafif tasarım, yeni özellikler yolda!",
-        url: "https://www.webtekno.com/apple-vision-pro-2-sizdirildi-h123456.html"
-      },
-      {
-        title: "Tesla'dan güneş enerjisi atağı",
-        description: "Ev tipi bataryalarda %40 verim artışı sağlandı.",
-        url: "https://www.donanimhaber.com/tesla-ev-bataryalari-verim-artisi--123456"
-      },
-      {
-        title: "Yeni Nesil AI Çipleri piyasaya çıkıyor",
-        description: "Yapay zeka hızlandırıcı çiplerde devrim niteliğinde gelişmeler.",
-        url: "https://www.webtekno.com/ai-chip-yeni-nesil-h123456.html"
-      }
-    ];
-
-    function loadNews() {
-      const newsList = document.getElementById("news-list");
-      newsList.innerHTML = "";
-      newsData.forEach(item => {
-        const div = document.createElement("div");
-        div.classList.add("card");
-        div.innerHTML = `
-          <div class="card-title"><a href="${item.url}" target="_blank" class="link">${item.title}</a></div>
-          <p>${item.description}</p>
-        `;
-        newsList.appendChild(div);
-      });
-    }
-
-    document.getElementById("refresh-news").addEventListener("click", loadNews);
-    window.addEventListener("load", loadNews);
-  </script>
 </body>
 
 </html>
