@@ -14,7 +14,8 @@
       padding: 20px;
     }
 
-    header, footer {
+    header,
+    footer {
       text-align: center;
       margin-bottom: 20px;
     }
@@ -35,7 +36,8 @@
       transition: background-color 0.3s;
     }
 
-    nav button:hover, nav button.active {
+    nav button:hover,
+    nav button.active {
       background-color: #00bfff;
     }
 
@@ -93,6 +95,7 @@
       cursor: pointer;
       transition: background-color 0.3s;
     }
+
     #game-buttons button:hover {
       background-color: #008ecc;
     }
@@ -102,7 +105,7 @@
       background: #222;
       padding: 15px;
       border-radius: 10px;
-      min-height: 300px;
+      min-height: 320px;
       color: #eee;
       font-size: 16px;
     }
@@ -114,7 +117,9 @@
       grid-template-rows: repeat(3, 80px);
       gap: 10px;
       justify-content: center;
+      margin: 0 auto;
     }
+
     .cell {
       background: #333;
       border-radius: 8px;
@@ -126,31 +131,74 @@
       user-select: none;
       color: #00bfff;
       font-weight: bold;
+      transition: background-color 0.3s;
     }
+
     .cell.disabled {
       cursor: not-allowed;
       color: #555;
     }
 
-    /* RPS Styles */
-    #rpsGame button {
-      padding: 10px 20px;
-      margin: 0 10px;
-      background-color: #00bfff;
-      border: none;
-      color: white;
-      border-radius: 6px;
+    .cell:hover:not(.disabled) {
+      background-color: #005577;
+    }
+
+    /* Bot seçimi styles */
+    #botChoice {
+      margin-top: 10px;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    #botChoice label {
       cursor: pointer;
-      font-size: 18px;
-      transition: background-color 0.3s;
+      font-size: 16px;
+      user-select: none;
     }
-    #rpsGame button:hover {
-      background-color: #008ecc;
+
+    #botChoice input {
+      margin-right: 6px;
+      cursor: pointer;
     }
-    #rpsResult {
+
+    /* Kazanma mesajları */
+    #gameMessage {
       margin-top: 15px;
+      text-align: center;
       font-size: 18px;
-      color: #00e1ff;
+      font-weight: 600;
+      padding: 10px;
+      border-radius: 8px;
+      max-width: 300px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    #gameMessage.win {
+      color: #0f0;
+      background-color: #033903;
+      border: 1px solid #0a0;
+    }
+
+    #gameMessage.lose {
+      color: #f33;
+      background-color: #390303;
+      border: 1px solid #a00;
+    }
+
+    #gameMessage.draw {
+      color: #ff0;
+      background-color: #393903;
+      border: 1px solid #aa0;
+    }
+
+    /* Yılan oyunu canvas */
+    #snakeGame {
+      background: #000;
+      display: block;
+      margin: 20px auto 0;
+      border-radius: 8px;
     }
   </style>
 </head>
@@ -183,7 +231,9 @@
 
     <section id="muzik" class="tab">
       <h2>Spotify</h2>
-      <iframe class="spotify" src="https://open.spotify.com/embed/playlist/37i9dQZF1DXcBWIGoYBM5M?utm_source=generator" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+      <iframe class="spotify"
+        src="https://open.spotify.com/embed/playlist/37i9dQZF1DXcBWIGoYBM5M?utm_source=generator"
+        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
     </section>
 
     <section id="oyunlar" class="tab">
@@ -191,7 +241,6 @@
       <div id="game-buttons">
         <button onclick="showGame('snake')">Yılan Oyunu</button>
         <button onclick="showGame('tictactoe')">Tic Tac Toe</button>
-        <button onclick="showGame('rps')">Taş-Kağıt-Makas</button>
       </div>
       <div id="game-container">
         <p>Oynamak için bir oyun seçin.</p>
@@ -242,19 +291,17 @@
     function showGame(game) {
       const container = document.getElementById('game-container');
       if (game === 'snake') {
-        container.innerHTML = `<canvas id="snakeGame" width="300" height="300" style="background:#000; display:block; margin:auto;"></canvas>`;
+        container.innerHTML = `<canvas id="snakeGame" width="300" height="300"></canvas>`;
         startSnakeGame();
       } else if (game === 'tictactoe') {
-        container.innerHTML = `<div id="tictactoeGame"></div>`;
-        startTicTacToe();
-      } else if (game === 'rps') {
         container.innerHTML = `
-          <div id="rpsGame">
-            <button onclick="rpsPlay('taş')">Taş</button>
-            <button onclick="rpsPlay('kağıt')">Kağıt</button>
-            <button onclick="rpsPlay('makas')">Makas</button>
-            <div id="rpsResult"></div>
-          </div>`;
+          <div id="botChoice">
+            <label><input type="radio" name="mode" value="bot" checked> Botla Oyna</label>
+            <label><input type="radio" name="mode" value="player"> Kendi Aranızda Oyna</label>
+          </div>
+          <div id="tictactoeGame"></div>
+          <div id="gameMessage"></div>`;
+        startTicTacToe();
       }
     }
 
@@ -264,7 +311,7 @@
       const ctx = canvas.getContext('2d');
       const grid = 20;
       let count = 0;
-      let snake = [{x: 160, y: 160}];
+      let snake = [{ x: 160, y: 160 }];
       let dx = grid;
       let dy = 0;
       let food = randomFood();
@@ -277,44 +324,50 @@
         };
       }
 
-      document.addEventListener('keydown', function(e) {
-        if(e.key === 'ArrowLeft' && dx === 0) {
-          dx = -grid; dy = 0;
-        } else if(e.key === 'ArrowUp' && dy === 0) {
-          dx = 0; dy = -grid;
-        } else if(e.key === 'ArrowRight' && dx === 0) {
-          dx = grid; dy = 0;
-        } else if(e.key === 'ArrowDown' && dy === 0) {
-          dx = 0; dy = grid;
+      document.onkeydown = function (e) {
+        if (gameOver) return;
+
+        if (e.key === 'ArrowLeft' && dx === 0) {
+          dx = -grid;
+          dy = 0;
+        } else if (e.key === 'ArrowUp' && dy === 0) {
+          dx = 0;
+          dy = -grid;
+        } else if (e.key === 'ArrowRight' && dx === 0) {
+          dx = grid;
+          dy = 0;
+        } else if (e.key === 'ArrowDown' && dy === 0) {
+          dx = 0;
+          dy = grid;
         }
-      });
+      };
 
       function gameLoop() {
-        if(gameOver) {
+        if (gameOver) {
           ctx.fillStyle = 'red';
           ctx.font = '20px Arial';
           ctx.textAlign = 'center';
-          ctx.fillText('Oyun Bitti! Sayfa yenileyin.', canvas.width/2, canvas.height/2);
+          ctx.fillText('Oyun Bitti! Sayfayı yenileyin.', canvas.width / 2, canvas.height / 2);
           return;
         }
         requestAnimationFrame(gameLoop);
 
-        if(++count < 4) return;
+        if (++count < 4) return;
         count = 0;
 
         ctx.clearRect(0, 0, canvas.width, canvas.height);
 
         // Yılanın yeni konumu
-        let head = {x: snake[0].x + dx, y: snake[0].y + dy};
+        let head = { x: snake[0].x + dx, y: snake[0].y + dy };
 
         // Duvara çarpma kontrolü
-        if(head.x < 0 || head.x >= canvas.width || head.y < 0 || head.y >= canvas.height) {
+        if (head.x < 0 || head.x >= canvas.width || head.y < 0 || head.y >= canvas.height) {
           gameOver = true;
         }
 
         // Kendi üzerine çarpma kontrolü
-        for(let i=0; i<snake.length; i++) {
-          if(head.x === snake[i].x && head.y === snake[i].y) {
+        for (let i = 0; i < snake.length; i++) {
+          if (head.x === snake[i].x && head.y === snake[i].y) {
             gameOver = true;
           }
         }
@@ -322,7 +375,7 @@
         snake.unshift(head);
 
         // Yem yeme kontrolü
-        if(head.x === food.x && head.y === food.y) {
+        if (head.x === food.x && head.y === food.y) {
           food = randomFood();
         } else {
           snake.pop();
@@ -330,11 +383,11 @@
 
         // Yılanı çiz
         ctx.fillStyle = 'lime';
-        snake.forEach(s => ctx.fillRect(s.x, s.y, grid-1, grid-1));
+        snake.forEach(s => ctx.fillRect(s.x, s.y, grid - 1, grid - 1));
 
         // Yemi çiz
         ctx.fillStyle = 'red';
-        ctx.fillRect(food.x, food.y, grid-1, grid-1);
+        ctx.fillRect(food.x, food.y, grid - 1, grid - 1);
       }
 
       gameLoop();
@@ -343,21 +396,35 @@
     // --- Tic Tac Toe Oyunu ---
     function startTicTacToe() {
       const container = document.getElementById('tictactoeGame');
-      container.innerHTML = '';
-
+      const message = document.getElementById('gameMessage');
       let board = Array(9).fill(null);
       let currentPlayer = 'X';
       let gameActive = true;
 
+      // Seçenek radyo butonları
+      const modeRadios = document.querySelectorAll('input[name="mode"]');
+
+      // Bilgisayar modu için basit yapay zeka (rastgele boş hücre seçer)
+      function computerMove() {
+        if (!gameActive) return;
+        let emptyIndices = board.map((v, i) => v === null ? i : -1).filter(i => i !== -1);
+        if (emptyIndices.length === 0) return;
+        let choice = emptyIndices[Math.floor(Math.random() * emptyIndices.length)];
+        board[choice] = 'O';
+        currentPlayer = 'X';
+        render();
+        checkGameEnd();
+      }
+
       function checkWinner() {
         const winPatterns = [
-          [0,1,2], [3,4,5], [6,7,8], // satırlar
-          [0,3,6], [1,4,7], [2,5,8], // sütunlar
-          [0,4,8], [2,4,6]           // çaprazlar
+          [0, 1, 2], [3, 4, 5], [6, 7, 8], // rows
+          [0, 3, 6], [1, 4, 7], [2, 5, 8], // cols
+          [0, 4, 8], [2, 4, 6]             // diagonals
         ];
-        for(const pattern of winPatterns) {
-          const [a,b,c] = pattern;
-          if(board[a] && board[a] === board[b] && board[b] === board[c]) {
+        for (const pattern of winPatterns) {
+          const [a, b, c] = pattern;
+          if (board[a] && board[a] === board[b] && board[b] === board[c]) {
             return board[a];
           }
         }
@@ -365,57 +432,79 @@
       }
 
       function cellClick(i) {
-        if(!gameActive || board[i]) return;
+        if (!gameActive || board[i]) return;
+
+        // Eğer botla oynanıyorsa, oyuncu sadece X, bot O
+        const mode = Array.from(modeRadios).find(r => r.checked).value;
+
         board[i] = currentPlayer;
         render();
+
         const winner = checkWinner();
-        if(winner) {
-          container.innerHTML += `<p style="text-align:center; color:#0f0;">Kazanan: ${winner}</p>`;
+        if (winner) {
           gameActive = false;
+          showMessage(`Tebrikler! '${winner}' kazandı.`, 'win');
           return;
         }
-        if(!board.includes(null)) {
-          container.innerHTML += `<p style="text-align:center; color:#ff0;">Berabere!</p>`;
+
+        if (!board.includes(null)) {
           gameActive = false;
+          showMessage('Oyun berabere sonuçlandı.', 'draw');
           return;
         }
-        currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+
+        if (mode === 'bot') {
+          currentPlayer = 'O';
+          setTimeout(() => {
+            computerMove();
+            if (!gameActive) return;
+            const winnerBot = checkWinner();
+            if (winnerBot) {
+              gameActive = false;
+              showMessage(`Bot kazandı!`, 'lose');
+            } else if (!board.includes(null)) {
+              gameActive = false;
+              showMessage('Oyun berabere sonuçlandı.', 'draw');
+            }
+          }, 600);
+        } else {
+          // İki oyunculu modda sırayı değiştir
+          currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+        }
       }
 
       function render() {
         container.innerHTML = '';
-        board.forEach((cell,i) => {
+        board.forEach((cell, i) => {
           const cellDiv = document.createElement('div');
           cellDiv.classList.add('cell');
-          if(!gameActive || cell) cellDiv.classList.add('disabled');
+          if (!gameActive || cell) cellDiv.classList.add('disabled');
           cellDiv.textContent = cell || '';
           cellDiv.addEventListener('click', () => cellClick(i));
           container.appendChild(cellDiv);
         });
       }
 
-      render();
-    }
-
-    // --- Taş-Kağıt-Makas Oyunu ---
-    function rpsPlay(userChoice) {
-      const choices = ['taş', 'kağıt', 'makas'];
-      const computerChoice = choices[Math.floor(Math.random()*3)];
-      let result = '';
-
-      if(userChoice === computerChoice) {
-        result = `Berabere! İkiniz de ${userChoice} seçtiniz.`;
-      } else if (
-        (userChoice === 'taş' && computerChoice === 'makas') ||
-        (userChoice === 'kağıt' && computerChoice === 'taş') ||
-        (userChoice === 'makas' && computerChoice === 'kağıt')
-      ) {
-        result = `Kazandınız! Bilgisayar ${computerChoice} seçti.`;
-      } else {
-        result = `Kaybettiniz! Bilgisayar ${computerChoice} seçti.`;
+      function showMessage(text, type) {
+        message.textContent = text;
+        message.className = '';
+        if (type === 'win') message.classList.add('win');
+        else if (type === 'lose') message.classList.add('lose');
+        else if (type === 'draw') message.classList.add('draw');
       }
 
-      document.getElementById('rpsResult').textContent = result;
+      // Mode değişince resetle
+      modeRadios.forEach(radio => {
+        radio.addEventListener('change', () => {
+          board = Array(9).fill(null);
+          currentPlayer = 'X';
+          gameActive = true;
+          message.textContent = '';
+          render();
+        });
+      });
+
+      render();
     }
   </script>
 </body>
