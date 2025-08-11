@@ -1,53 +1,71 @@
 <!DOCTYPE html>
 <html lang="tr">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Halil Mert | Kişisel Web Sitesi</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #111;
-      color: #eee;
+    * {
+      box-sizing: border-box;
       margin: 0;
-      padding: 20px;
+      padding: 0;
     }
 
-    header,
-    footer {
+    body {
+      font-family: 'Poppins', sans-serif;
+      background-color: #0f172a;
+      color: #e2e8f0;
+      margin: 0;
+      padding: 20px;
+      line-height: 1.6;
+    }
+
+    header {
       text-align: center;
       margin-bottom: 20px;
+    }
+
+    header h1 {
+      font-size: 2.5rem;
+      color: #38bdf8;
+    }
+
+    header p {
+      color: #94a3b8;
     }
 
     nav {
       text-align: center;
-      margin-bottom: 20px;
+      margin-bottom: 30px;
     }
 
     nav button {
-      padding: 10px 15px;
+      padding: 10px 20px;
       margin: 0 5px;
-      background-color: #333;
+      background-color: #1e293b;
       border: none;
-      color: white;
+      color: #fff;
       cursor: pointer;
-      border-radius: 6px;
-      transition: background-color 0.3s;
+      border-radius: 8px;
+      font-weight: 500;
+      transition: all 0.3s ease;
     }
 
     nav button:hover,
     nav button.active {
-      background-color: #00bfff;
+      background-color: #38bdf8;
+      color: #0f172a;
     }
 
     section.tab {
       display: none;
-      background-color: #1c1c1c;
-      padding: 15px;
-      border-radius: 10px;
-      max-width: 800px;
+      background-color: #1e293b;
+      padding: 20px;
+      border-radius: 12px;
+      max-width: 900px;
       margin: auto;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
     }
 
     section.tab.active {
@@ -55,21 +73,27 @@
     }
 
     .card {
-      background: #222;
-      border-left: 4px solid #00bfff;
-      padding: 10px;
-      margin-bottom: 10px;
-      border-radius: 6px;
+      background: #0f172a;
+      border: 1px solid #334155;
+      padding: 15px;
+      margin-bottom: 15px;
+      border-radius: 10px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
     }
 
     .card-title {
       font-weight: bold;
-      color: #00e1ff;
-      margin-bottom: 5px;
+      color: #38bdf8;
+      margin-bottom: 8px;
     }
 
     a.link {
-      color: #00aaff;
+      color: #38bdf8;
       text-decoration: none;
     }
 
@@ -83,9 +107,15 @@
       height: 380px;
       border: none;
     }
+
+    footer {
+      text-align: center;
+      margin-top: 30px;
+      color: #64748b;
+      font-size: 0.9rem;
+    }
   </style>
 </head>
-
 <body>
   <header>
     <h1>Halil Mert</h1>
@@ -101,7 +131,7 @@
   <main>
     <section id="hakkimda" class="tab active">
       <h2>Hakkımda</h2>
-      <p>Merhaba! Ben Halil Mert. Yazılım geliştiricisiyim ve bu benim kişisel web sitem.</p>
+      <p>Merhaba! Ben Halil Mert. Yazılım geliştiricisiyim ve bu benim kişisel web sitem. Modern teknolojiler, oyun geliştirme ve tasarım ile ilgileniyorum.</p>
     </section>
 
     <section id="projeler" class="tab">
@@ -114,7 +144,7 @@
     <section id="muzik" class="tab">
       <h2>Spotify</h2>
       <iframe class="spotify"
-        src="https://open.spotify.com/embed/playlist/37i9dQZF1DXcBWIGoYBM5M?utm_source=generator"
+        src="https://open.spotify.com/embed/playlist/37i9dQZF1DXcBWIGoYBM5M"
         allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
     </section>
   </main>
@@ -158,21 +188,5 @@
 
     loadGitHubProjects();
   </script>
-
-  <!--Start of Tawk.to Script-->
-  <script type="text/javascript">
-    var Tawk_API = Tawk_API || {}, Tawk_LoadStart = new Date();
-    (function () {
-      var s1 = document.createElement("script"), s0 = document.getElementsByTagName("script")[0];
-      s1.async = true;
-      s1.src = 'https://embed.tawk.to/6891094a88d9b3192aa854b9/1j1r8oji0';
-      s1.charset = 'UTF-8';
-      s1.setAttribute('crossorigin', '*');
-      s0.parentNode.insertBefore(s1, s0);
-    })();
-  </script>
-  <!--End of Tawk.to Script-->
-
 </body>
-
 </html>
